@@ -7,16 +7,16 @@ archivepath=r"C:\Users\utente\Desktop\Luca\Archivio"
 eofs=[".jpg",".JPG",".jpeg",".png",".gif",".mp4",".opus",".mpeg"]
 archivedict={}
 
-newfiles=os.scandir(path)
+newfolder=os.scandir(path)
+newfiles=[]
 for file in newfiles:
     truefalse=list()
     for eof in eofs:
         truefalse.append(file.name.endswith(eof))
     if any(truefalse):
-        continue
+        newfiles.append(file)
     else:
-        print("Elimino",file.name,"in quanto estensione non valida")
-        #os.remove(file.path) #elimino file in quanto estensione non valida
+        print("Impossibile processare",file.name,"in quanto estensione non valida")
 
 #trovo numero progressivo
 years=os.scandir(archivepath)
@@ -51,5 +51,5 @@ for file in newfiles:
             archivedict[year][month]={}
             number=archivedict[year][month][day]=archivedict[year][month].get(day,0)+1 #popola il dizionario
         newname="%s-%s-%s-%s.%s" %(day,month,year[2:],str(number),eof)
-        print("Rinomino ",file.name,"come",newname,"e lo sposto in ",archivepath+"\\%s\\%s\\%s" %(year,month,newname))
+        #print("Rinomino ",file.name,"come",newname,"e lo sposto in ",archivepath+"\\%s\\%s\\%s" %(year,month,newname))
         #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,newname)) #sposto i nuovi file
