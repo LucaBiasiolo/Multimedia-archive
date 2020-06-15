@@ -44,7 +44,7 @@ for year in years:
                     oldname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],file[1],eof)
                     newname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],newpn,eof)
                     print("Rinomino ", oldname, "come ",newname)
-                    #os.rename(file.path,month.path+"\\"+newname) #rinomino il file
+                    os.rename(month.path+"\\"+oldname,month.path+"\\"+newname) #rinomino il file
                     c.execute("insert into Files values (?,?,?,?,?,?,?,?,?)",(None,newname,day,month.name,year.name[2:],newpn,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag)) #inserisco file nel database
 conn.commit()
 conn.close()

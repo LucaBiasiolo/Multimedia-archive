@@ -2,6 +2,7 @@
 import sqlite3
 import os
 from datetime import datetime
+from rename_functions import *
 path=r"C:\Users\utente\Pictures\2020-06-02"#=input("Inserisci path con foto e video: ")
 archivepath=r"C:\Users\utente\Desktop\Luca\Archivio"
 eofs=[".jpg",".JPG",".jpeg",".png",".gif",".mp4",".opus",".mpeg"]
@@ -18,9 +19,9 @@ for file in newfolder:
         newfiles.append(file)
     else:
         print("Impossibile processare",file.name,"in quanto estensione non valida")
-
-#rinomino i file con data di ultima modifica e li sposto              
-for file in newfiles: #rinominare prima usando il nome del file e dopo con la data di ultima modifica in caso non si riuscisse
+          
+for file in newfiles: 
+    #rinominare prima usando il nome del file e dopo con la data di ultima modifica in caso non si riuscisse
     mtimestamp=os.path.getmtime(file.path)
     mdate=datetime.fromtimestamp(mtimestamp) #data ultima modifica file
     day=mdate.day
