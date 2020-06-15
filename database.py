@@ -7,6 +7,7 @@ archivepath=r"C:\Users\utente\Desktop\Luca\Archivio"
 
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
+c.execute("drop table Files")
 c.execute("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, path TEXT UNIQUE, eof TEXT,type_flag INTEGER)")
 
 years=os.scandir(archivepath)
@@ -16,22 +17,34 @@ for year in years:
         for month in months:
             if month.is_dir():
                 files=os.scandir(month.path)
+                filelist=[]
                 for file in files:
                     if len(file.name.split("-"))==4:
-                        day=file.name.split("-")[0]
-                        month=file.name.split("-")[1]
-                        year=file.name.split("-")[2]
-                        final_piece=file.name.split("-")[3]
-                        prog_number=final_piece.split(".")[0]
-                        path=file.path
+                        day=int(file.name.split("-")[0])
+                        piece=file.name.split("-")[3]
+                        oldpn=int(piece.split(".")[0])
                         eof=file.name.split(".")[1]
-                        if file.name.endswith(".opus"):
-                            type_flag=1
-                        elif file.name.endswith(".mp4") or file.name.endswith(".mpeg"):
-                            type_flag=2
-                        else:
-                            type_flag=0
-                        c.execute("insert or ignore into Files values (?,?,?,?,?,?,?,?,?)",(None,file.name,day,month,year,prog_number,path,eof,type_flag)) #ignora l'aggiunta se questa viola un constraint del database
+                        filelist.append((day,oldpn,eof))
+                filelist.sort()
+                for file in filelist:
+                    day=file[0]
+                    eof=file[2]
+                    c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(day,month.name,year.name[2:])) #cerco massimo numero progressivo nel database (lo popolo dinamicamente)
+                    maxpn=c.fetchone()[0]
+                    if maxpn is None:
+                        newpn=1
+                    else:
+                        newpn=maxpn+1
+                    if eof=="opus":
+                        type_flag=1
+                    elif eof=="mp4" or eof==".mpeg":
+                        type_flag=2
+                    else:
+                        type_flag=0
+                    oldname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],file[1],eof)
+                    newname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],newpn,eof)
+                    print("Rinomino ", oldname, "come ",newname)
+                    #os.rename(file.path,month.path+"\\"+newname) #rinomino il file
+                    c.execute("insert into Files values (?,?,?,?,?,?,?,?,?)",(None,newname,day,month.name,year.name[2:],newpn,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag)) #inserisco file nel database
 conn.commit()
-c.execute("Select * from Files")
-print(c.fetchall())
+conn.close()

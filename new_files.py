@@ -45,7 +45,7 @@ for file in newfiles: #rinominare prima usando il nome del file e dopo con la da
     #creare cartella anno/mese se lo spostamento non va a buon fine
     
     #aggiorno database per aggiornare automaticamente numero progressivo
-    #print("insert into Files values (%s,%d,%d,%s,%d,%s,%s,%d)" %(newname,day,month,year[2:],number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
+    print("insert into Files values (%s,%d,%d,%s,%d,%s,%s,%d)" %(newname,day,month,year[2:],number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
     c.execute("insert into Files values (?,?,?,?,?,?,?,?,?)",(None,newname,day,month,year[2:],number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
 conn.rollback()
 conn.close()
