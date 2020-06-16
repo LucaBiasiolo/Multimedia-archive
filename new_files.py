@@ -1,4 +1,4 @@
-#Il seguente script prende i file nuovi da aggiungere da una cartella, elimina quelli con estensioni non adatte e li rinomina e sposta opportunamente andando a pescare il numero progressivo giusto dal database associato all'archivio
+#Il seguente script prende i file nuovi da aggiungere da una cartella, li rinomina e li sposta opportunamente andando a pescare il numero progressivo giusto dal database associato all'archivio
 import sqlite3
 import os
 from datetime import datetime
@@ -21,13 +21,16 @@ for file in newfolder:
         print("Impossibile processare",file.name,"in quanto estensione non valida")
           
 for file in newfiles: 
-    #rinominare prima usando il nome del file e dopo con la data di ultima modifica in caso non si riuscisse
-    mtimestamp=os.path.getmtime(file.path)
-    mdate=datetime.fromtimestamp(mtimestamp) #data ultima modifica file
-    day=mdate.day
-    month=mdate.month
-    year=str(mdate.year)
-    eof=file.name.split(".")[1] #estensione file
+    #controllare se la foto che sto rinominando è un doppione oppure no
+    if len(file.name.split(".")[0])==10:
+        [day,month,year]=rename_timestamp(file)
+    elif file.name.startswith("IMG-"):
+        [day,month,year]=rename_IMG(file)
+    elif file.name.startswith("WP"):
+        [day,month,year]=rename_WP(file)
+    else:
+        [day,month,year]=rename_mdate(file)
+    eof=file.name.split(".")[1]
     c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(day,month,year[2:]))
     maxpn=c.fetchone()[0]
     if maxpn is None:
@@ -41,12 +44,14 @@ for file in newfiles:
     else:
         type_flag=0
     newname="%s-%s-%s-%s.%s" %(day,month,year[2:],str(number),eof)
-    print("Rinomino ",file.name,"come",newname,"e lo sposto in ",archivepath+"\\%s\\%s\\%s" %(year,month,newname))
-    #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,newname)) #sposto i nuovi file
-    #creare cartella anno/mese se lo spostamento non va a buon fine
-    
-    #aggiorno database per aggiornare automaticamente numero progressivo
-    print("insert into Files values (%s,%d,%d,%s,%d,%s,%s,%d)" %(newname,day,month,year[2:],number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
+    try:
+        print("Rinomino ",file.name,"come",newname,"e lo sposto in ",archivepath+"\\%s\\%s\\%s" %(year,month,newname))
+        #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,newname)) #sposto i nuovi file
+    except:
+        print("Creo la cartella ", year,month)
+        #os.mkdir(archivepath+"\\%s\\%s" %(year,month)) #creo cartella anno/mese se questa non esiste
+        #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,newname)) #sposto i nuovi file
+    #print("insert into Files values (%s,%d,%d,%d,%d,%s,%s,%d)" %(newname,int(day),int(month),int(year[2:]),number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
     c.execute("insert into Files values (?,?,?,?,?,?,?,?,?)",(None,newname,day,month,year[2:],number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
 conn.rollback()
 conn.close()

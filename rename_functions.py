@@ -7,14 +7,14 @@ from datetime import datetime
 def rename_annomesegiornoora(file):
     pieces=file.name.split("_")
     year=pieces[0][0:4]
-    month=pieces[0][4:6]
-    day=pieces[0][6:]
+    month=pieces[0][4:6].lstrip('0')
+    day=pieces[0][6:].lstrip('0')
     return [day,month,year]
         
 #rinomino file che hanno nome tipo timestamp
 def rename_timestamp(file):
-    timestamp=file.name.split(".")[0]
-    date=datetime.fromtimestamp(int(timestamp)) #data ultima modifica file
+    timestamp=int(file.name.split(".")[0])
+    date=datetime.fromtimestamp(timestamp) #data ultima modifica file
     day=str(mdate.day)
     month=str(mdate.month)
     year=str(mdate.year)
@@ -24,16 +24,16 @@ def rename_timestamp(file):
 def rename_IMG(file):
     pieces=file.name.split("-")
     year=pieces[1][0:4]
-    month=pieces[1][4:6]
-    day=pieces[1][6:]
+    month=pieces[1][4:6].lstrip('0')
+    day=pieces[1][6:].lstrip('0')
     return [day,month,year]
     
 #rinomino file che hanno nome tipo WP_annomesegiorno_ora_minuti_secondi
 def rename_WP(file):
     pieces=file.name.split("_")
     year=pieces[1][0:4]
-    month=pieces[1][4:6]
-    day=pieces[1][6:]
+    month=pieces[1][4:6].lstrip('0')
+    day=pieces[1][6:].lstrip('0')
     return [day,month,year]
 
 #rinomino file usando data di ultima modifica del path
