@@ -8,7 +8,7 @@ archivepath=r"C:\Users\utente\Desktop\Luca\Archivio"
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
 c.execute("drop table Files")
-c.execute("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, path TEXT UNIQUE, eof TEXT,type_flag INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, eof TEXT)")
 
 years=os.scandir(archivepath)
 for year in years:
@@ -35,16 +35,10 @@ for year in years:
                         newpn=1
                     else:
                         newpn=maxpn+1
-                    if eof=="opus":
-                        type_flag=1
-                    elif eof=="mp4" or eof==".mpeg":
-                        type_flag=2
-                    else:
-                        type_flag=0
                     oldname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],file[1],eof)
                     newname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],newpn,eof)
                     print("Rinomino ", oldname, "come ",newname)
                     os.rename(month.path+"\\"+oldname,month.path+"\\"+newname) #rinomino il file
-                    c.execute("insert into Files values (?,?,?,?,?,?,?,?,?)",(None,newname,day,month.name,year.name[2:],newpn,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag)) #inserisco file nel database
+                    c.execute("insert into Files values (?,?,?,?,?,?,?)",(None,newname,day,month.name,year.name[2:],newpn,eof)) #inserisco file nel database
 conn.commit()
 conn.close()

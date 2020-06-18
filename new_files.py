@@ -37,21 +37,20 @@ for file in newfiles:
         number=1
     else:
         number=maxpn+1
-    if file.name.endswith(".opus"):
-        type_flag=1
-    elif file.name.endswith(".mp4") or file.name.endswith(".mpeg"):
-        type_flag=2
-    else:
-        type_flag=0
     newname="%s-%s-%s-%s.%s" %(day,month,year[2:],str(number),eof)
-    try:
-        print("Rinomino ",file.name,"come",newname,"e lo sposto in ",archivepath+"\\%s\\%s\\%s" %(year,month,newname))
-        #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,newname)) #sposto i nuovi file
-    except:
-        print("Creo la cartella ", year,month)
+    years=os.listdir(archivepath)
+    if str(year) in years:
+        months=os.listdir(archivepath+"\\"+year)
+        if str(month) in months:
+            print("Rinomino ",file.name,"come",newname,"e lo sposto in ",archivepath+"\\%s\\%s\\%s" %(year,month,newname))
+        else:
+            print("Creo la cartella del mese ",year, month)
+            #os.mkdir(archivepath+"\\%s\\%s" %(year,month)) #creo cartella anno/mese se questa non esiste
+    else:
+        print("Creo la cartella anno/mese", year, month)
         #os.mkdir(archivepath+"\\%s\\%s" %(year,month)) #creo cartella anno/mese se questa non esiste
-        #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,newname)) #sposto i nuovi file
-    #print("insert into Files values (%s,%d,%d,%d,%d,%s,%s,%d)" %(newname,int(day),int(month),int(year[2:]),number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
-    c.execute("insert into Files values (?,?,?,?,?,?,?,?,?)",(None,newname,day,month,year[2:],number,archivepath+"\\%s\\%s\\%s" %(year,month,newname),eof,type_flag))
+    #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,newname)) #sposto i nuovi file
+    #print("insert into Files values (%s,%d,%d,%d,%d,%s)" %(newname,int(day),int(month),int(year[2:]),number,eof))
+    c.execute("insert into Files values (?,?,?,?,?,?,?)",(None,newname,day,month,year[2:],number,eof))
 conn.rollback()
 conn.close()
