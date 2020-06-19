@@ -1,8 +1,23 @@
 #Collezione di funzioni per rinominare i file partendo direttamente dal loro nome. Da sistemare
 
+import sqlite3
 import os
 from datetime import datetime
-            
+conn=sqlite3.connect("archive.db")
+c=conn.cursor()
+
+#funzione generale per rinominare i file
+def rename_general(file):
+    if len(file.name.split(".")[0])==10:
+        [day,month,year]=rename_timestamp(file)
+    elif file.name.startswith("IMG-"):
+        [day,month,year]=rename_IMG(file)
+    elif file.name.startswith("WP"):
+        [day,month,year]=rename_WP(file)
+    else:
+        [day,month,year]=rename_mdate(file)
+    return [day,month,year]
+
 #rinomino file che hanno nome tipo annomesegiorno_ora
 def rename_annomesegiornoora(file):
     pieces=file.name.split("_")

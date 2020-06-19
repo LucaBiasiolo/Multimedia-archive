@@ -29,6 +29,7 @@ for year in years:
                 filelist.sort() #ordina i file in ordine numerico crescente
                 for file in filelist:
                     day=file[0]
+                    oldpn=file[1]
                     eof=file[2]
                     c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(day,month.name,year.name[2:])) #cerco massimo numero progressivo nel database (lo popolo dinamicamente)
                     maxpn=c.fetchone()[0]
@@ -36,7 +37,7 @@ for year in years:
                         newpn=1
                     else:
                         newpn=maxpn+1
-                    oldname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],file[1],eof)
+                    oldname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],oldpn,eof)
                     newname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],newpn,eof)
                     f=open(month.path+"\\"+oldname,'rb')
                     h=hashlib.sha1() #nuovo oggetto sha-1

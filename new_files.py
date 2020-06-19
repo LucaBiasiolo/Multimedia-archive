@@ -30,14 +30,7 @@ for file in newfiles:
     if doubles is not None:
         print(file.name,"doppione di ",doubles[0])
         continue
-    if len(file.name.split(".")[0])==10:
-        [day,month,year]=rename_timestamp(file)
-    elif file.name.startswith("IMG-"):
-        [day,month,year]=rename_IMG(file)
-    elif file.name.startswith("WP"):
-        [day,month,year]=rename_WP(file)
-    else:
-        [day,month,year]=rename_mdate(file) #rinomina utilizzando la data di ultima modifica del file
+    [day,month,year]=rename_general(file)
     eof=file.name.split(".")[1]
     c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(day,month,year[2:]))
     maxpn=c.fetchone()[0]
