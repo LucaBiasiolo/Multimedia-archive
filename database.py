@@ -2,13 +2,14 @@
 
 import os
 import sqlite3
+import hashlib
 path=r"C:\Users\utente\Pictures\2020-06-02"#=input("Inserisci path con foto e video: ")
 archivepath=r"C:\Users\utente\Desktop\Luca\Archivio"
 
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
 c.execute("drop table Files")
-c.execute("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, eof TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, eof TEXT,hash TEXT UNIQUE)")
 
 years=os.scandir(archivepath)
 for year in years:
@@ -25,7 +26,7 @@ for year in years:
                         oldpn=int(piece.split(".")[0])
                         eof=file.name.split(".")[1]
                         filelist.append((day,oldpn,eof))
-                filelist.sort()
+                filelist.sort() #ordina i file in ordine numerico crescente
                 for file in filelist:
                     day=file[0]
                     eof=file[2]
@@ -37,8 +38,14 @@ for year in years:
                         newpn=maxpn+1
                     oldname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],file[1],eof)
                     newname="%s-%s-%s-%s.%s" %(day,month.name,year.name[2:],newpn,eof)
-                    print("Rinomino ", oldname, "come ",newname)
-                    os.rename(month.path+"\\"+oldname,month.path+"\\"+newname) #rinomino il file
-                    c.execute("insert into Files values (?,?,?,?,?,?,?)",(None,newname,day,month.name,year.name[2:],newpn,eof)) #inserisco file nel database
+                    f=open(month.path+"\\"+oldname,'rb')
+                    h=hashlib.sha1() #nuovo oggetto sha-1
+                    h.update(f.read())
+                    fhash=h.hexdigest() #hash del file
+                    f.close()
+                    if newname!=oldname:
+                        print("Rinomino ", oldname, "come ",newname)
+                        os.rename(month.path+"\\"+oldname,month.path+"\\"+newname) #rinomino il file
+                    c.execute("insert into Files values (?,?,?,?,?,?,?,?)",(None,newname,day,month.name,year.name[2:],newpn,eof,fhash)) #popolo il database coi dati dei file
 conn.commit()
 conn.close()
