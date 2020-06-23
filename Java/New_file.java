@@ -1,9 +1,9 @@
 public class New_file{
-    String name,path,eof,hash;
+    String fname,fpath,feof,fhash;
     public New_file(String name, String path){
-        name=name;
-        path=path;
-        eof=name.split(".")[1];
+        fname=name;
+        fpath=path;
+        feof=name.split("\\.")[1];
         //filehash
     }
 }

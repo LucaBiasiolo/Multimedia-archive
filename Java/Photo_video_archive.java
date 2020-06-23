@@ -4,11 +4,23 @@ public class Photo_video_archive{
     String[] eofs={"jpg","JPG","jpeg","png","gif","mp4","opus","mpeg","mp3"};
     public static boolean check_file(New_file file){
         boolean okay=true;
-        return okay;
     }
-    // public static Archive_file rename(new_file file){
-        
-    // }
+    public static Archive_file rename(new_file file){
+        String[] dmy;
+        if (file.name.split("\\.")[0].length==10){
+            dmy=rename_timestamp(file)
+        }
+        else if (file.name.startsWith("IMG-")){
+            dmy=rename_IMG(file)
+        }
+        else if (file.name.startsWith("WP")){
+            dmy=rename_WP(file)
+        }
+        else{
+            dmy=rename_mdate(file)
+        }
+        //
+    }
     // public static String[] rename_annomesegiornoora(new_file file){
         
     // }
@@ -29,6 +41,9 @@ public class Photo_video_archive{
     // }
     public static void main(String[] args){
         Photo_video_archive archive=new Photo_video_archive();
-        System.out.println(archive.eofs);
+        New_file newfile=new New_file("31-5-20-5.jpg",archive.path+"\\"+"31-5-20-5.jpg");
+        System.out.println(newfile.fname);
+        System.out.println(newfile.fpath);
+        System.out.println(newfile.feof);
     }
 }
