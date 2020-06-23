@@ -1,13 +1,8 @@
 #Il seguente script prende i file nuovi da aggiungere da una cartella, li rinomina e li sposta opportunamente andando a pescare il numero progressivo giusto dal database associato all'archivio
 import sqlite3
 import os
-import hashlib
-from datetime import datetime
 from functions import *
-from class_objects import *
 path=r"C:\Users\utente\Pictures\2020-06-02"#=input("Inserisci path con foto e video: ")
-archivepath=r"C:\Users\utente\Desktop\Luca\Archivio foto-video"
-eofs=["jpg","JPG","jpeg","png","gif","mp4","opus","mpeg"]
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
 
@@ -20,8 +15,6 @@ for file in files:
 for file in newfiles:
     okay=check_file(file)
     if okay:
-        newname=rename(file)
-        file=archive_file(newname,file.path)
-        move(file)
+        move(rename(file))
 conn.rollback()
 conn.close()

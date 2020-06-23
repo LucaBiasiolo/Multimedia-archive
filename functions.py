@@ -1,14 +1,41 @@
-#Collezione di funzioni per rinominare i file partendo direttamente dal loro nome. Da sistemare
+#Collezione di funzioni e classi per rinominare i file partendo direttamente dal loro nome. Da sistemare
 
 import sqlite3
 import os
-import hashlib
 from datetime import datetime
+import hashlib
 path=r"C:\Users\utente\Pictures\2020-06-02"#=input("Inserisci path con foto e video: ")
 archivepath=r"C:\Users\utente\Desktop\Luca\Archivio foto-video"
-eofs=["jpg","JPG","jpeg","png","gif","mp4","opus","mpeg"]
+eofs=["jpg","JPG","jpeg","png","gif","mp4","opus","mpeg","mp3"]
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
+
+class new_file:
+    def __init__(self,name,path):
+        self.name=name
+        self.path=path
+        self.eof=self.name.split(".")[1]
+        f=open(self.path,'rb')
+        h=hashlib.sha1() #nuovo oggetto sha-1
+        h.update(f.read())
+        f.close()
+        self.hash=h.hexdigest()     #hash del file
+
+class archive_file:
+    def __init__(self,name,path):
+        self.name=name
+        self.path=path
+        self.day=self.name.split("-")[0]
+        self.month=self.name.split("-")[1]
+        self.year=self.name.split("-")[2]
+        finalpiece=self.name.split("-")[3]
+        self.pn=finalpiece.split(".")[0]
+        self.eof=self.name.split(".")[1]
+        f=open(self.path,'rb')
+        h=hashlib.sha1() #nuovo oggetto sha-1
+        h.update(f.read())
+        f.close()
+        self.hash=h.hexdigest()     #hash del file
 
 def check_file(file):
     okay=True
@@ -40,7 +67,9 @@ def rename(file):
     else:
         number=maxpn+1
     newname="%s-%s-%s-%s.%s" %(day,month,year[2:],str(number),file.eof)
-    return newname
+    #os.rename(file.path,path+"\\"+newname)
+    file=archive_file(newname,file.path)
+    return file
 
 #rinomino file che hanno nome tipo annomesegiorno_ora
 def rename_annomesegiornoora(file):
@@ -83,7 +112,8 @@ def rename_mdate(file):
     month=mdate.month
     year=str(mdate.year)
     return [day,month,year]
-    
+
+#funzione generica per spostare i file
 def move(file):
     years=os.listdir(archivepath)
     if "20"+file.year in years:
@@ -96,5 +126,5 @@ def move(file):
     else:
         print("Creo la cartella anno/mese","20"+file.year, file.month)
         os.mkdir(archivepath+"\\%s\\%s" %("20"+file.year,file.month)) #creo cartella anno/mese se questa non esiste
-        #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %(year,month,file.name)) #sposto i nuovi file
-        c.execute("insert into Files values (?,?,?,?,?,?,?,?)",(None,file.name,day,month,year[2:],number,eof,fhash))
+    #os.rename(file.path,archivepath+"\\%s\\%s\\%s" %("20"+file.year,file.month,file.name)) #sposto i nuovi file
+    c.execute("insert into Files values (?,?,?,?,?,?,?,?)",(None,file.name,file.day,file.month,file.year,file.pn,file.eof,file.hash))
