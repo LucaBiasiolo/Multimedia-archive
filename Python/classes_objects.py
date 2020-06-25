@@ -44,8 +44,10 @@ class new_file:
             [day,month,year]=self.__rename_timestamp()
         elif self.name.startswith("IMG-"):
             [day,month,year]=self.__rename_IMG()
-        elif self.name.startswith("WP"):
+        elif self.name.startswith("WP_"):
             [day,month,year]=self.__rename_WP()
+        elif len(self.name.split(".")[0])==15:
+            [day,month,year]=self.__rename_annomesegiornoora()
         else:
             [day,month,year]=self.__rename_mdate()
         c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(day,month,year[2:]))
@@ -59,7 +61,6 @@ class new_file:
         self=archive_file(newname,self.path)
         return self
     
-        
     #rinomino file che hanno nome tipo annomesegiorno_ora
     def __rename_annomesegiornoora(self):
         pieces=self.name.split("_")
@@ -76,7 +77,7 @@ class new_file:
         month=str(mdate.month)
         year=str(mdate.year)
         return [day,month,year]
-            
+
     #rinomino file che hanno nome tipo IMG-annomesegiorn-numero
     def __rename_IMG(self):
         pieces=self.name.split("-")

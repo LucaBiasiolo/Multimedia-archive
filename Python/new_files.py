@@ -1,7 +1,5 @@
 #Il seguente script prende i file nuovi da aggiungere da una cartella, li rinomina e li sposta opportunamente andando a pescare il numero progressivo giusto dal database associato all'archivio
-import sqlite3
-import os
-from functions import *
+from classes_objects import *
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
 
