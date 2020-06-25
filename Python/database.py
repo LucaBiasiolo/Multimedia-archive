@@ -9,7 +9,7 @@ archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video"
 
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
-c.execute("drop table Files")
+c.execute("drop table if exists Files")
 c.execute("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, eof TEXT,hash TEXT UNIQUE)")
 
 years=os.scandir(archivepath)
@@ -38,5 +38,5 @@ for year in years:
                         print("Rinomino ", oldname, "come ",file.name)
                         #os.rename(month.path+"\\"+oldname,month.path+"\\"+file.name) #rinomino il file
                     c.execute("insert into Files values (?,?,?,?,?,?,?,?)",(None,file.name,file.day,file.month,file.year,file.pn,file.eof,file.hash)) #popolo il database coi dati dei file
-conn.rollback()
+conn.commit()
 conn.close()

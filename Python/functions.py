@@ -41,24 +41,25 @@ class new_file:
     #funzione generale per rinominare i file
     def rename(self):
         if len(self.name.split(".")[0])==10:
-            [day,month,year]=self._rename_timestamp()
+            [day,month,year]=self.__rename_timestamp()
         elif self.name.startswith("IMG-"):
-            [day,month,year]=self._rename_IMG()
+            [day,month,year]=self.__rename_IMG()
         elif self.name.startswith("WP"):
-            [day,month,year]=self._rename_WP()
+            [day,month,year]=self.__rename_WP()
         else:
-            [day,month,year]=self._rename_mdate()
+            [day,month,year]=self.__rename_mdate()
         c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(day,month,year[2:]))
         maxpn=c.fetchone()[0]
         if maxpn is None:
-            number=1
+            number='1'
         else:
-            number=maxpn+1
-        newname="%s-%s-%s-%s.%s" %(day,month,year[2:],str(number),self.eof)
+            number=str(maxpn+1)
+        newname="%s-%s-%s-%s.%s" %(day,month,year[2:],number,self.eof)
         #os.rename(self.path,path+"\\"+newname)
         self=archive_file(newname,self.path)
         return self
-
+    
+        
     #rinomino file che hanno nome tipo annomesegiorno_ora
     def __rename_annomesegiornoora(self):
         pieces=self.name.split("_")
@@ -93,7 +94,7 @@ class new_file:
         return [day,month,year]
 
     #rinomino file usando data di ultima modifica del path
-    def _rename_mdate(self):
+    def __rename_mdate(self):
         mtimestamp=os.path.getmtime(self.path)
         mdate=datetime.fromtimestamp(mtimestamp) #data ultima modifica file
         day=mdate.day
@@ -104,17 +105,17 @@ class new_file:
     #funzione generica per spostare i file
     def move(self):
         years=os.listdir(archivepath)
-        if "20"+self.year in years:
-            months=os.listdir(archivepath+"\\"+"20"+self.year)
+        if self.year in years:
+            months=os.listdir(archivepath+"\\"+self.year)
             if self.month in months:
-                print("Rinomino come",self.name,"e lo sposto in ",archivepath+"\\%s\\%s\\%s" %("20"+self.year,self.month,self.name))
+                print(self.name,"in ",archivepath+"\\%s\\%s\\%s" %(self.year,self.month,self.name))
             else:
-                print("Creo la cartella del mese ","20"+self.year, self.month)
-                os.mkdir(archivepath+"\\%s\\%s" %("20"+self.year,self.month)) #creo cartella mese se questa non esiste
+                print("Creo la cartella del mese ",self.year, self.month)
+                os.mkdir(archivepath+"\\%s\\%s" %(self.year,self.month)) #creo cartella mese se questa non esiste
         else:
-            print("Creo la cartella anno/mese","20"+self.year, self.month)
-            os.mkdir(archivepath+"\\%s\\%s" %("20"+self.year,self.month)) #creo cartella anno/mese se questa non esiste
-        #os.rename(self.path,archivepath+"\\%s\\%s\\%s" %("20"+self.year,self.month,self.name)) #sposto i nuovi file
+            print("Creo la cartella anno/mese",self.year, self.month)
+            os.mkdir(archivepath+"\\%s\\%s" %(self.year,self.month)) #creo cartella anno/mese se questa non esiste
+        #os.rename(self.path,archivepath+"\\%s\\%s\\%s" %(self.year,self.month,self.name)) #sposto i nuovi file
         c.execute("insert into Files values (?,?,?,?,?,?,?,?)",(None,self.name,self.day,self.month,self.year,self.pn,self.eof,self.hash))
 
 class archive_file(new_file):
