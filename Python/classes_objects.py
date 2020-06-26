@@ -4,7 +4,6 @@ import sqlite3
 import os
 from datetime import datetime
 import hashlib
-path="C:\\Users\\utente\\Pictures\\2020-06-02"#=input("Inserisci path con foto e video: ")
 archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video"
 eofs=["jpg","JPG","jpeg","png","gif","mp4","opus","mpeg","mp3"]
 conn=sqlite3.connect("archive.db")
@@ -42,8 +41,8 @@ class new_file:
     def rename(self):
         if len(self.name.split(".")[0])==10:
             [day,month,year]=self.__rename_timestamp()
-        elif self.name.startswith("IMG-"):
-            [day,month,year]=self.__rename_IMG()
+        elif self.name.startswith("IMG-") or self.name.startswith("VID-"):
+            [day,month,year]=self.__rename_IMGVID()
         elif self.name.startswith("WP_"):
             [day,month,year]=self.__rename_WP()
         elif len(self.name.split(".")[0])==15:
@@ -57,8 +56,8 @@ class new_file:
         else:
             number=str(maxpn+1)
         newname="%s-%s-%s-%s.%s" %(day,month,year[2:],number,self.eof)
-        #os.rename(self.path,path+"\\"+newname)
-        self=archive_file(newname,self.path)
+        os.rename(self.path,path+"\\"+newname)
+        self=archive_file(newname,path+"\\"+newname)
         return self
     
     #rinomino file che hanno nome tipo annomesegiorno_ora
@@ -79,7 +78,7 @@ class new_file:
         return [day,month,year]
 
     #rinomino file che hanno nome tipo IMG-annomesegiorn-numero
-    def __rename_IMG(self):
+    def __rename_IMGVID(self):
         pieces=self.name.split("-")
         year=pieces[1][0:4]
         month=pieces[1][4:6].lstrip('0')
@@ -116,7 +115,7 @@ class new_file:
         else:
             print("Creo la cartella anno/mese",self.year, self.month)
             os.mkdir(archivepath+"\\%s\\%s" %(self.year,self.month)) #creo cartella anno/mese se questa non esiste
-        #os.rename(self.path,archivepath+"\\%s\\%s\\%s" %(self.year,self.month,self.name)) #sposto i nuovi file
+        os.rename(self.path,archivepath+"\\%s\\%s\\%s" %(self.year,self.month,self.name)) #sposto i nuovi file
         c.execute("insert into Files values (?,?,?,?,?,?,?,?)",(None,self.name,self.day,self.month,self.year,self.pn,self.eof,self.hash))
 
 class archive_file(new_file):
@@ -136,6 +135,6 @@ class archive_file(new_file):
         else:
             number=maxpn+1
         newname="%s-%s-%s-%s.%s" %(self.day,self.month,self.year,str(number),self.eof)
-        #os.rename(self.path,path+"\\"+newname)
+        os.rename(self.path,path+"\\"+newname)
         self=archive_file(newname,self.path)
         

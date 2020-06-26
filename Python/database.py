@@ -1,12 +1,9 @@
 #creazione database associato all'archivio di foto/video. Comincio creando una singola tabella 
-
 import os
 import sqlite3
 import hashlib
 from classes_objects import *
-path="C:\\Users\\utente\\Pictures\\2020-06-02"#=input("Inserisci path con foto e video: ")
 archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video"
-
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
 c.execute("drop table Files")
@@ -33,11 +30,9 @@ for year in years:
                     eof=file[2]
                     oldname="%s-%s-%s-%s.%s" %(day,month.name,year.name,oldpn,eof)
                     file=archive_file(oldname,month.path+"\\"+oldname)
-                    file.rename()
-                    print(file.name)
                     if file.name!=oldname:
                         print("Rinomino ", oldname, "come ",file.name)
-                        #os.rename(month.path+"\\"+oldname,month.path+"\\"+file.name) #rinomino il file
+                        file.rename()
                     c.execute("insert into Files values (?,?,?,?,?,?,?,?)",(None,file.name,file.day,file.month,file.year,file.pn,file.eof,file.hash)) #popolo il database coi dati dei file
-conn.rollback()
+conn.commit()
 conn.close()
