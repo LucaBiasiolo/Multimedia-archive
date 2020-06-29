@@ -4,7 +4,7 @@ import sqlite3
 import os
 from datetime import datetime
 import hashlib
-archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video"
+archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video-audio"
 eofs=["jpg","JPG","jpeg","png","gif","mp4","opus","mpeg","mp3"]
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()

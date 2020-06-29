@@ -3,7 +3,7 @@ import os
 import sqlite3
 import hashlib
 from classes_objects import *
-archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video"
+archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video-audio"
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
 c.execute("drop table Files")
