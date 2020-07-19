@@ -1,7 +1,4 @@
 #creazione database associato all'archivio di foto/video. Comincio creando una singola tabella 
-import os
-import sqlite3
-import hashlib
 from classes_objects import *
 archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video-audio"
 conn=sqlite3.connect("archive.db")
