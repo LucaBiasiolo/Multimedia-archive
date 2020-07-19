@@ -6,6 +6,7 @@ from datetime import datetime
 import hashlib
 archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video-audio"
 eofs=["jpg","JPG","jpeg","png","gif","mp4","opus","mpeg","mp3"]
+newpath="C:\\Users\\utente\\Pictures\\2020-07-05"
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
 
@@ -56,8 +57,8 @@ class new_file:
         else:
             number=str(maxpn+1)
         newname="%s-%s-%s-%s.%s" %(day,month,year[2:],number,self.eof)
-        os.rename(self.path,path+"\\"+newname)
-        self=archive_file(newname,path+"\\"+newname)
+        os.rename(self.path,newpath+"\\"+newname) #da sistemare
+        self=archive_file(newname,newpath+"\\"+newname) #da sistemare
         return self
     
     #rinomino file che hanno nome tipo annomesegiorno_ora
@@ -72,9 +73,9 @@ class new_file:
     def __rename_timestamp(self):
         timestamp=int(self.name.split(".")[0])
         date=datetime.fromtimestamp(timestamp) #data ultima modifica file
-        day=str(mdate.day)
-        month=str(mdate.month)
-        year=str(mdate.year)
+        day=str(date.day)
+        month=str(date.month)
+        year=str(date.year)
         return [day,month,year]
 
     #rinomino file che hanno nome tipo IMG-annomesegiorn-numero
