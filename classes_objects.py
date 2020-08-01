@@ -4,7 +4,8 @@ import sqlite3
 import os
 from datetime import datetime
 import hashlib
-archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video"
+archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video-audio"
+path=input("Inserisci path con foto e video: ")
 eofs=["jpg","JPG","jpeg","png","gif","mp4","opus","mpeg","mp3"]
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
@@ -40,22 +41,22 @@ class new_file:
     #funzione generale per rinominare i file
     def rename(self):
         if len(self.name.split(".")[0])==10:
-            [day,month,year]=self.__rename_timestamp()
+            [self.day,self.month,self.year]=self.__rename_timestamp()
         elif self.name.startswith("IMG-") or self.name.startswith("VID-"):
-            [day,month,year]=self.__rename_IMGVID()
+            [self.day,self.month,self.year]=self.__rename_IMGVID()
         elif self.name.startswith("WP_"):
-            [day,month,year]=self.__rename_WP()
+            [self.day,self.month,self.year]=self.__rename_WP()
         elif len(self.name.split(".")[0])==15:
-            [day,month,year]=self.__rename_annomesegiornoora()
+            [self.day,self.month,self.year]=self.__rename_annomesegiornoora()
         else:
-            [day,month,year]=self.__rename_mdate()
-        c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(day,month,year[2:]))
+            [self.day,self.month,self.year]=self.__rename_mdate()
+        c.execute("select max(Prog_number) from Files where Day=? and Month=? and Year=?",(self.day,self.month,self.year[2:]))
         maxpn=c.fetchone()[0]
         if maxpn is None:
-            number='1'
+            self.pn='1'
         else:
-            number=str(maxpn+1)
-        newname="%s-%s-%s-%s.%s" %(day,month,year[2:],number,self.eof)
+            self.pn=str(maxpn+1)
+        newname="%s-%s-%s-%s.%s" %(self.day,self.month,self.year[2:],self.pn,self.eof)
         os.rename(self.path,path+"\\"+newname)
         self=archive_file(newname,path+"\\"+newname)
         return self
@@ -71,7 +72,7 @@ class new_file:
     #rinomino file che hanno nome tipo timestamp
     def __rename_timestamp(self):
         timestamp=int(self.name.split(".")[0])
-        date=datetime.fromtimestamp(timestamp) #data ultima modifica file
+        mdate=datetime.fromtimestamp(timestamp) #data ultima modifica file
         day=str(mdate.day)
         month=str(mdate.month)
         year=str(mdate.year)
