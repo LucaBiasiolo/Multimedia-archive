@@ -1,18 +1,16 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Database {
 
-    private final Connection connection;
-
     public Database() throws SQLException {
-        this.connection = DriverManager.getConnection("jdbc:sqlite:archive.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:archive.db");
         Statement statement = connection.createStatement();
         statement.executeQuery("drop table Files");
-        statement.executeQuery("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, eof TEXT,hash TEXT UNIQUE)");
-        // TODO: implementare interazione con il sistema operativo
+        statement.executeQuery(
+                "create table if not exists files (file_id integer primary key, file_name text unique, day integer, month integer, year integer, prog_number integer, eof text, path text unique, hash text unique)"
+        );
         connection.close();
     }
+
+
 }
