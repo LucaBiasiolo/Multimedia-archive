@@ -1,55 +1,68 @@
 import java.io.File;
-import java.util.ArrayList;
+import java.sql.*;
+import java.util.Arrays;
 
 public class NewFile {
 
     private String name;
     private String path;
     private String endOfFile;
-    private String hash;
-
+    private int hashCode;
+    private String day;
+    private String month;
+    private String year;
     private final String archivePath = "C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video-audio";
-    private final ArrayList<String> endOfFiles = new ArrayList<>();
+    private final String[] endOfFiles = {"jpg", "JPG", "jpeg", "png", "gif", "mp4", "opus", "mpeg", "mp3" };
+
     public NewFile(String name, String path){
-        // TODO: scrivere meglio aggiunta
-        endOfFiles.add("jpg");
-        endOfFiles.add("JPG");
-        endOfFiles.add("jpeg");
-        endOfFiles.add("png");
-        endOfFiles.add("gif");
-        endOfFiles.add("mp4");
-        endOfFiles.add("opus");
-        endOfFiles.add("mpeg");
-        endOfFiles.add("mp3");
         this.name = name;
         this.path = path;
         this.endOfFile = this.name.split(".")[1];
-        // TODO: this.hash = this.calculateHash();
+        this.hashCode = new File(this.path).hashCode();
     }
 
-    protected void calculateHash(){
-        File file = new File(this.path);
-        // TODO: calcolare hash del file
-        // return hash
-    }
-
-    public boolean checkFile(NewFile newFile){
+    public boolean checkFile(NewFile newFile) throws SQLException {
         boolean okay = true;
-        if (!endOfFiles.contains(this.endOfFile)){
+        if (Arrays.asList(endOfFiles).contains(this.endOfFile)){
             System.out.println("Impossibile processare " + this.name + "in quanto estensione non valida");
             okay = false;
         }
         else {
             // TODO: cercare possibili doppioni
+            // Usare java.sql -> Classe DriverManager -> metodo getConnection()
+//            Connection connection  = DriverManager.getConnection("jdbc:sqlite:archive.db");
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery("select * from Files");
+
         }
+
     }
 
     public void renameAndMoveFile(){
+        if (this.name.split(".")[0].length() == 10) {
+            this.renameTimestampFile();
+        }
+        else if (this.name.startsWith("IMG-") || this.name.startsWith("VID-")){
+            this.renameIMGVIDFile();
+        }
+        else if (this.name.startsWith("WP-")){
+            this.renameWPFile();
+        }
+        else if (this.name.split(".")[0].length() == 15) {
+            this.renameYearMonthDayHourFile();
+        }
+        else {
+            this.renameMDateFile();
+        }
         //
+
     }
 
     private void renameYearMonthDayHourFile(){
-        //
+        String[] pieces = this.name.split("_");
+        this.year = pieces[0].substring(0,4);
+        this.month = pieces[0].substring(4,6).replaceFirst("^0+(?!$)", "");
+        this.day = pieces[0].substring(6).replaceFirst("^0+(?!$)", "");
     }
 
     private void renameTimestampFile(){
@@ -57,11 +70,17 @@ public class NewFile {
     }
 
     private void renameIMGVIDFile(){
-        //
+        String[] pieces = this.name.split("-");
+        this.year = pieces[1].substring(0,4);
+        this.month = pieces[1].substring(4,6).replaceFirst("^0+(?!$)", "");
+        this.day = pieces[1].substring(6).replaceFirst("^0+(?!$)", "");
     }
 
     private void renameWPFile(){
-        //
+        String[] pieces = this.name.split("_");
+        this.year = pieces[1].substring(0,4);
+        this.month = pieces[1].substring(4,6).replaceFirst("^0+(?!$)", "");
+        this.day = pieces[1].substring(6).replaceFirst("^0+(?!$)", "");
     }
 
     private void renameMDateFile(){
