@@ -1,9 +1,12 @@
 #creazione database associato all'archivio di foto/video. Comincio creando una singola tabella 
-from classes_objects import *
+import os
+import sqlite3
+import hashlib
+from classes_objects import archive_file
 archivepath="C:\\Users\\utente\\Desktop\\Luca\\Archivio foto-video-audio"
 conn=sqlite3.connect("archive.db")
 c=conn.cursor()
-c.execute("drop table Files")
+c.execute("drop table if exists Files")
 c.execute("CREATE TABLE IF NOT EXISTS Files (File_id INTEGER PRIMARY KEY, File_name TEXT UNIQUE, Day INTEGER, Month INTEGER, Year INTEGER, Prog_number INTEGER, eof TEXT,hash TEXT UNIQUE)")
 
 years=os.scandir(archivepath)
