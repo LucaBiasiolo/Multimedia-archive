@@ -20,7 +20,7 @@ public class MultimediaArchive {
             }
         }
     }
-
+    // TODO: cancellare cartella java da branch master e risolvere merge-conflicts con il commit funzionante
     // TODO: implementare metodo che chieda all'utente dove creare l'archivio, con che nome
     // TODO: implementare GUI che permetta all'utente di eseguire le varie funzioni
 }
