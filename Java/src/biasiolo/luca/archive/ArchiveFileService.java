@@ -5,6 +5,17 @@ import java.util.ArrayList;
 
 public class ArchiveFileService {
 
+    private static ArchiveFileService archiveFileServiceInstance = null;
+
+    private ArchiveFileService(){}
+
+    public static ArchiveFileService getInstance() {
+        if (archiveFileServiceInstance == null) {
+            archiveFileServiceInstance = new ArchiveFileService();
+        }
+        return archiveFileServiceInstance;
+    }
+
     private void renameArchiveFiles() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:archive.db");
         Statement statement = connection.createStatement();
@@ -34,7 +45,7 @@ public class ArchiveFileService {
 //                this.progressiveNumber = Integer.parseInt("1");
 //            }
 //        }
-//        String newFileName = this.day + "-" + this.month + "-" + Integer.toString(this.year).substring(2) + "-" + this.progressiveNumber + "-" + this.fileExtension;
+//        String archiveFileName = this.day + "-" + this.month + "-" + Integer.toString(this.year).substring(2) + "-" + this.progressiveNumber + "-" + this.fileExtension;
 //        // TODO: implementare interazione con il sistema operativo
     //}
 }
