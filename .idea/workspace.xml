@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:develop-java" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b92f1c6c-0c3c-4c47-b375-bcf3486beac8" name="Default Changelist" comment="Improved code and solved some bugs. Added jdbc sqlite driver" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Luca Biasiolo &lt;lcbiasiolo@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/LucaBiasiolo/Photo-video-archive" />
+      </set>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.1\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1imdYPKyRXrNOqWSDFvVBjMhIxm" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="true" />
+    <property name="Repository.Attach.JavaDocs" value="true" />
+    <property name="Repository.Attach.Sources" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="Archive" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Luca Biasiolo\Desktop\Akera\Multimedia-archive\Python" />
+      <recent name="C:\Users\Luca Biasiolo\Desktop\Akera\Photo-video-archive\Java\src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MultimediaArchive" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="biasiolo.luca.archive.MultimediaArchive" />
+      <module name="Multimedia-archive" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Multimedia-archive" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b92f1c6c-0c3c-4c47-b375-bcf3486beac8" name="Default Changelist" comment="" />
+      <created>1602516748117</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602516748117</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Restart developing java version of the app">
+      <created>1602519081745</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1602519081745</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Created main class">
+      <created>1602582528908</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1602582528908</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Improved code and solved some bugs. Added jdbc sqlite driver">
+      <created>1602582594738</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1602582594738</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Improved methods and implemented interaction with database archive.db">
+      <created>1602594528421</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1602594528421</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Created Archive Class to store archive routines and methods">
+      <created>1602605012275</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602605012275</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Improved code. NewFile extend class File">
+      <created>1602605122956</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1602605122956</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Improved functionalities and started implementation of Main">
+      <created>1602605295693</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1602605295693</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added README.md">
+      <created>1602605821669</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1602605821669</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added README.md">
+      <created>1602605965419</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1602605965419</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Updated gitignore and README">
+      <created>1602773767087</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1602773767087</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Delete python folder and started massive refactoring of project">
+      <created>1602846440597</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1602846440597</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Delete and move files and renamed entire project in &quot;Multimedia-archive&quot;">
+      <created>1602846492807</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1602846492807</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Massive refactoring: start division of files in data types and services and move code accordingly">
+      <created>1602846588113</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1602846588113</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added TODO">
+      <created>1602851419134</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1602851419134</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Deleted java directory">
+      <created>1602851607345</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1602851607345</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.py" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/ripristino" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/ripristino" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="develop-java" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Restart developing java version of the app" />
+    <MESSAGE value="Created main class" />
+    <MESSAGE value="Improved code and solved some bugs. Added jdbc sqlite driver" />
+    <MESSAGE value="Improved methods and implemented interaction with database archive.db" />
+    <MESSAGE value="Created Archive Class to store archive routines and methods" />
+    <MESSAGE value="Improved code. NewFile extend class File" />
+    <MESSAGE value="Improved functionalities and started implementation of Main" />
+    <MESSAGE value="Added README.md" />
+    <MESSAGE value="Updated gitignore and README" />
+    <MESSAGE value="Delete python folder and started massive refactoring of project" />
+    <MESSAGE value="Delete and move files and renamed entire project in &quot;Multimedia-archive&quot;" />
+    <MESSAGE value="Massive refactoring: start division of files in data types and services and move code accordingly" />
+    <MESSAGE value="Added TODO" />
+    <MESSAGE value="Deleted java directory" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleted java directory" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="249" y="0" key="#Project_Structure" timestamp="1602516810314">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1602516810314" />
+    <state x="223" y="67" width="1089" height="713" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602845849777">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="67" width="1089" height="713" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1602845849777" />
+    <state x="548" y="117" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1602592803458">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="548" y="117" key="#com.intellij.ide.macro.MacrosDialog/0.0.1536.824@0.0.1536.824" timestamp="1602592803458" />
+    <state x="574" y="96" key="#com.intellij.ide.util.MemberChooser" timestamp="1602845391478">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="96" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1602845391478" />
+    <state x="498" y="202" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1602845846550">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="498" y="202" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1602845846550" />
+    <state x="485" y="220" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1602601249708">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="485" y="220" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.824@0.0.1536.824" timestamp="1602601249708" />
+    <state x="499" y="159" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1602599131243">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="159" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.824@0.0.1536.824" timestamp="1602599131243" />
+    <state x="549" y="122" key="FileChooserDialogImpl" timestamp="1602663710283">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="122" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1602663710283" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1602845871737">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602845871737" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1602845871737">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602845871737" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1602845871737">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602845871737" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1602845871737">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602845871737" />
+    <state x="349" y="155" key="IDE.errors.dialog" timestamp="1602846233097">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="349" y="155" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1602846233097" />
+    <state x="249" y="0" key="SettingsEditor" timestamp="1602661550833">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1602661550833" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1602851659101">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602851659101" />
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1602581428597">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1602581428597" />
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602851851613">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1602851851613" />
+    <state x="478" y="145" width="579" height="534" key="find.popup" timestamp="1602582882108">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="478" y="145" width="579" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1602582882108" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1602593401991">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1602593401991" />
+  </component>
+</project>
