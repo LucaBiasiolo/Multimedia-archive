@@ -1,4 +1,4 @@
-package biasiolo.luca.archive;
+package biasiolo.luca.multimediaarchive.database;
 
 public class Database {
 

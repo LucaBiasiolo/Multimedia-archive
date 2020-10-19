@@ -1,4 +1,4 @@
-package biasiolo.luca.archive;
+package biasiolo.luca.multimediaarchive.database;
 
 import java.sql.*;
 import java.util.logging.Level;

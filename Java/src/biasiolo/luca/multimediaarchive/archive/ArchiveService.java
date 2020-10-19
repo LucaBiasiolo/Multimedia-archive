@@ -1,4 +1,4 @@
-package biasiolo.luca.archive;
+package biasiolo.luca.multimediaarchive.archive;
 
 public class ArchiveService {
     // TODO: metodi di utility per gestire l'archivio multimediale
