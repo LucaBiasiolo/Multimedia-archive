@@ -1,4 +1,6 @@
-package biasiolo.luca.archive;
+package biasiolo.luca.multimediaarchive.newfile;
+
+import biasiolo.luca.multimediaarchive.archive.ArchiveFile;
 
 import java.io.File;
 import java.sql.*;
@@ -10,6 +12,10 @@ public class NewFileService {
 
     private static NewFileService newFileServiceInstance = null;
     private final Logger logger = Logger.getLogger("New-file-service-logger");
+    private int day;
+    private int month;
+    private int year;
+    private int progressiveNumber;
     private NewFileService() {}
 
     public static NewFileService getInstance() {
@@ -29,6 +35,7 @@ public class NewFileService {
     }
 
     public void renameAndMoveFile(NewFile newFile) throws SQLException {
+        int[] datePieces = new int[3];
         if (newFile.getName().split("\\.")[0].length() == 10) {
             renameTimestampFile(newFile);
         } else if (newFile.getName().startsWith("IMG-") || newFile.getName().startsWith("VID-")) {
@@ -44,59 +51,59 @@ public class NewFileService {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:archive.db");
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format(
-                "select max (prog_number) from files where day =%s and month=%s and year=%s", newFile.day, newFile.month, newFile.year
+                "select max (prog_number) from files where day =%s and month=%s and year=%s", this.day, this.month, this.year
         ));
         if (resultSet.next()) {
             String maxProgressiveNumber = resultSet.getString("prog_number");
             if (maxProgressiveNumber.equals("NULL")) {
-                newFile.progressiveNumber = Integer.parseInt("1");
+                this.progressiveNumber = Integer.parseInt("1");
             } else {
-                newFile.progressiveNumber = Integer.parseInt(maxProgressiveNumber) + 1;
+                this.progressiveNumber = Integer.parseInt(maxProgressiveNumber) + 1;
             }
         }
-        String newFileName = newFile.day + "-" + newFile.month + "-" + Integer.toString(newFile.year).substring(2) + "-" + newFile.progressiveNumber + "." + newFile.fileExtension;
+        String newFileName = this.day + "-" + this.month + "-" + Integer.toString(this.year).substring(2) + "-" + this.progressiveNumber + "." + newFile.fileExtension;
         // TODO: implementare rinominazione file e spostamento nella newFileella opportuna dell'archivio
         // TODO: implementare creazione newFileella dell'anno e del mese se queste ancora non esistono
         Statement insertStatement = connection.createStatement();
         insertStatement.executeQuery(String.format(
                 "insert into files values (%s,%s,%d,%d,%d,%d,%s,%s,%d)",
-                "NULL", newFileName, newFile.day, newFile.month, newFile.year, newFile.progressiveNumber, newFile.fileExtension, newFile.getAbsolutePath(), newFile.hashCode
+                "NULL", newFileName, this.day, this.month, this.year, this.progressiveNumber, newFile.fileExtension, newFile.getAbsolutePath(), newFile.hashCode()
         ));
         connection.close();
     }
 
     private void renameYearMonthDayHourFile(NewFile newFile) {
         String[] pieces = newFile.getName().split("_");
-        newFile.year = Integer.parseInt(pieces[0].substring(0, 4));
-        newFile.month = Integer.parseInt(pieces[0].substring(4, 6).replaceFirst("^0+(?!$)", ""));
-        newFile.day = Integer.parseInt(pieces[0].substring(6).replaceFirst("^0+(?!$)", ""));
+        this.year = Integer.parseInt(pieces[0].substring(0, 4));
+        this.month = Integer.parseInt(pieces[0].substring(4, 6).replaceFirst("^0+(?!$)", ""));
+        this.day = Integer.parseInt(pieces[0].substring(6).replaceFirst("^0+(?!$)", ""));
     }
 
     private void renameTimestampFile(NewFile newFile) {
         Timestamp timestamp = new Timestamp(Integer.parseInt(newFile.getName().split("\\.")[0]));
-        newFile.day = timestamp.getDay();
-        newFile.month = timestamp.getMonth();
-        newFile.year = timestamp.getYear();
+        this.day = timestamp.getDay();
+        this.month = timestamp.getMonth();
+        this.year = timestamp.getYear();
     }
 
     private void renameIMGVIDFile(NewFile newFile) {
         String[] pieces = newFile.getName().split("-");
-        newFile.year = Integer.parseInt(pieces[1].substring(0, 4));
-        newFile.month = Integer.parseInt(pieces[1].substring(4, 6).replaceFirst("^0+(?!$)", ""));
-        newFile.day = Integer.parseInt(pieces[1].substring(6).replaceFirst("^0+(?!$)", ""));
+        this.year = Integer.parseInt(pieces[1].substring(0, 4));
+        this.month = Integer.parseInt(pieces[1].substring(4, 6).replaceFirst("^0+(?!$)", ""));
+        this.day = Integer.parseInt(pieces[1].substring(6).replaceFirst("^0+(?!$)", ""));
     }
 
     private void renameWPFile(NewFile newFile) {
         String[] pieces = newFile.getName().split("_");
-        newFile.year = Integer.parseInt(pieces[1].substring(0, 4));
-        newFile.month = Integer.parseInt(pieces[1].substring(4, 6).replaceFirst("^0+(?!$)", ""));
-        newFile.day = Integer.parseInt(pieces[1].substring(6).replaceFirst("^0+(?!$)", ""));
+        this.year = Integer.parseInt(pieces[1].substring(0, 4));
+        this.month = Integer.parseInt(pieces[1].substring(4, 6).replaceFirst("^0+(?!$)", ""));
+        this.day = Integer.parseInt(pieces[1].substring(6).replaceFirst("^0+(?!$)", ""));
     }
 
     private void renameMDateFile(NewFile newFile) {
         Timestamp lastModifiedTimestamp = new Timestamp(new File(newFile.getAbsolutePath()).lastModified());
-        newFile.day = lastModifiedTimestamp.getDay();
-        newFile.month = lastModifiedTimestamp.getMonth();
-        newFile.year = lastModifiedTimestamp.getYear();
+        this.day = lastModifiedTimestamp.getDay();
+        this.month = lastModifiedTimestamp.getMonth();
+        this.year = lastModifiedTimestamp.getYear();
     }
 }
