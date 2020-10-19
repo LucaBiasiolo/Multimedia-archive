@@ -1,13 +1,21 @@
 package biasiolo.luca.archive;
 
-import java.io.File;
-import java.sql.SQLException;
-import java.util.Objects;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class MultimediaArchive {
 
-    public static void main(String[] args) throws SQLException {
-        System.out.println("Hello world!");
+    public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Absolute path of the folder to add: ");
+        final String NEW_FOLDER_PATH = scanner.nextLine();
+        System.out.println("Absolute path of the folder in which to create the archive");
+        final String ARCHIVE_ROOT_PATH = scanner.nextLine();
+        Properties properties = new Properties();
+        properties.setProperty("NEW_FOLDER_PATH", NEW_FOLDER_PATH);
+        properties.setProperty("ARCHIVE_ROOT_PATH", ARCHIVE_ROOT_PATH);
+        properties.store(new FileWriter("multimediaarchive.properties"),null);
     }
 }
