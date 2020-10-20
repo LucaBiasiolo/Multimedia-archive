@@ -1,6 +1,9 @@
 package biasiolo.luca.multimediaarchive.archive;
 
+import biasiolo.luca.multimediaarchive.MultimediaArchive;
 import biasiolo.luca.multimediaarchive.newfile.NewFile;
+
+import java.util.Properties;
 
 public class ArchiveFile extends NewFile {
 
@@ -8,6 +11,7 @@ public class ArchiveFile extends NewFile {
     private int month;
     private int year;
     private int progressiveNumber;
+    private Properties properties = MultimediaArchive.properties;
     public static final String[] ADMITTED_FILE_EXTENSIONS = {"jpg", "JPG", "jpeg", "png", "gif", "mp4", "opus", "mpeg", "mp3"};
 
     public ArchiveFile(String path) {
