@@ -11,8 +11,6 @@ public class ArchiveFile extends NewFile {
     private int month;
     private int year;
     private int progressiveNumber;
-    private Properties properties = MultimediaArchive.properties;
-    public static final String[] ADMITTED_FILE_EXTENSIONS = {"jpg", "JPG", "jpeg", "png", "gif", "mp4", "opus", "mpeg", "mp3"};
 
     public ArchiveFile(String path) {
         super(path);

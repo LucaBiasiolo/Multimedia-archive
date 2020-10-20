@@ -42,7 +42,7 @@ public class DatabaseService {
         }
     }
 
-    public void addFile(ArchiveFile archiveFileToAdd){
+    public void addFileToDb(ArchiveFile archiveFileToAdd){
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db_url"))) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(String.format( "insert into files values (%s,%s,%d,%d,%d,%d,%s,%s,%d)",

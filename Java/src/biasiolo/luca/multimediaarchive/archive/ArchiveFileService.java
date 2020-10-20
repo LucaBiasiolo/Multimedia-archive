@@ -3,7 +3,6 @@ package biasiolo.luca.multimediaarchive.archive;
 public class ArchiveFileService {
 
     private static ArchiveFileService archiveFileServiceInstance = null;
-
     private ArchiveFileService(){}
 
     public static ArchiveFileService getInstance() {

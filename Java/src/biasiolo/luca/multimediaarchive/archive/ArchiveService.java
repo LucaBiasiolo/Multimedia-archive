@@ -1,5 +1,7 @@
 package biasiolo.luca.multimediaarchive.archive;
 
+import biasiolo.luca.multimediaarchive.newfile.NewFile;
+
 public class ArchiveService {
     // TODO: metodi di utility per gestire l'archivio multimediale
 
@@ -12,5 +14,9 @@ public class ArchiveService {
             archiveServiceInstance = new ArchiveService();
         }
         return archiveServiceInstance;
+    }
+
+    public void checkArchive(NewFile newFile){
+        //
     }
 }
