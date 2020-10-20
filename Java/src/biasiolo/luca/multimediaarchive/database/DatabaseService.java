@@ -1,13 +1,17 @@
 package biasiolo.luca.multimediaarchive.database;
 
+import biasiolo.luca.multimediaarchive.MultimediaArchive;
+import biasiolo.luca.multimediaarchive.archive.ArchiveFile;
+
 import java.sql.*;
-import java.util.logging.Level;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class DatabaseService {
 
     private static DatabaseService databaseServiceInstance = null;
     private final Logger logger = Logger.getLogger("Database-Service-logger");
+    private final Properties properties = MultimediaArchive.properties;
     private DatabaseService(){}
 
     public static DatabaseService getInstance() {
@@ -17,25 +21,38 @@ public class DatabaseService {
         return databaseServiceInstance;
     }
 
-    public int getProgNumber(int day, int month, int year){
-        try(Connection connection = DriverManager.getConnection("jdbc:sqlite:archive.db")){
+    public int getProgNumber(int day, int month, int year) {
+        int maxProgressiveNumber = 1;
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("db_url"))) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(String.format(
                     "select max (prog_number) from files where day =%d and month=%d and year=%d", day, month, year
             ));
-            int maxProgressiveNumber = 0;
             if (resultSet.next()) {
                 maxProgressiveNumber = resultSet.getInt("prog_number");
             }
-            return maxProgressiveNumber;
         } catch (SQLException exception) {
-            logger.log(Level.SEVERE, "An error occurred:"+ exception.getMessage());
+            logger.severe("An error occurred:" + exception.getMessage());
             exception.printStackTrace();
-            return 0;
+        }
+        if (maxProgressiveNumber != 1) {
+            return ++maxProgressiveNumber;
+        } else {
+            return 1;
         }
     }
 
-    public void addFile(){
-
+    public void addFile(ArchiveFile archiveFileToAdd){
+        try (Connection connection = DriverManager.getConnection(properties.getProperty("db_url"))) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(String.format( "insert into files values (%s,%s,%d,%d,%d,%d,%s,%s,%d)",
+                    "NULL", archiveFileToAdd.getName(), archiveFileToAdd.getDay(), archiveFileToAdd.getMonth(), archiveFileToAdd.getYear(),
+                    archiveFileToAdd.getProgressiveNumber(), archiveFileToAdd.getFileExtension(), archiveFileToAdd.getAbsolutePath(),
+                    archiveFileToAdd.hashCode()
+            ));
+        } catch (SQLException exception) {
+            logger.severe("An error occurred:" + exception.getMessage());
+            exception.printStackTrace();
+        }
     }
 }
