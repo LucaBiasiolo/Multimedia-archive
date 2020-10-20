@@ -4,6 +4,14 @@ import java.io.File;
 
 public class NewFile extends File {
 
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+    public void setFileExtension(String fileExtension) {
+        this.fileExtension = fileExtension;
+    }
+
     protected String fileExtension;
 
     public NewFile(String path) {
