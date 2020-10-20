@@ -1,17 +1,21 @@
 package biasiolo.luca.multimediaarchive.newfile;
 
+import biasiolo.luca.multimediaarchive.MultimediaArchive;
 import biasiolo.luca.multimediaarchive.archive.ArchiveFile;
+import biasiolo.luca.multimediaarchive.database.DatabaseService;
 
 import java.io.File;
 import java.sql.*;
 import java.util.Arrays;
-import java.util.logging.Level;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class NewFileService {
 
     private static NewFileService newFileServiceInstance = null;
     private final Logger logger = Logger.getLogger("New-file-service-logger");
+    private final Properties properties = MultimediaArchive.properties;
+    private final DatabaseService databaseService = DatabaseService.getInstance();
     private int day;
     private int month;
     private int year;
@@ -28,13 +32,13 @@ public class NewFileService {
     public boolean checkFileExtension(NewFile newFile) throws SQLException {
         boolean okay = true;
         if (!Arrays.asList(ArchiveFile.ADMITTED_FILE_EXTENSIONS).contains(newFile.fileExtension)) {
-            logger.log(Level.INFO,"Impossibile processare " + newFile.getName() + " in quanto estensione non valida");
+            logger.info( newFile.getName() + " cannot be processed as its extension is invalid");
             okay = false;
         }
         return okay;
     }
 
-    public void renameAndMoveFile(NewFile newFile) throws SQLException {
+    public void renameFile(NewFile newFile) {
         int[] datePieces = new int[3];
         if (newFile.getName().split("\\.")[0].length() == 10) {
             renameTimestampFile(newFile);
@@ -47,29 +51,20 @@ public class NewFileService {
         } else {
             renameMDateFile(newFile);
         }
-        // databaseService.getProgNumber(day,month,year);
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:archive.db");
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(String.format(
-                "select max (prog_number) from files where day =%s and month=%s and year=%s", this.day, this.month, this.year
-        ));
-        if (resultSet.next()) {
-            String maxProgressiveNumber = resultSet.getString("prog_number");
-            if (maxProgressiveNumber.equals("NULL")) {
-                this.progressiveNumber = Integer.parseInt("1");
-            } else {
-                this.progressiveNumber = Integer.parseInt(maxProgressiveNumber) + 1;
-            }
-        }
-        String newFileName = this.day + "-" + this.month + "-" + Integer.toString(this.year).substring(2) + "-" + this.progressiveNumber + "." + newFile.fileExtension;
-        // TODO: implementare rinominazione file e spostamento nella newFileella opportuna dell'archivio
-        // TODO: implementare creazione newFileella dell'anno e del mese se queste ancora non esistono
-        Statement insertStatement = connection.createStatement();
-        insertStatement.executeQuery(String.format(
-                "insert into files values (%s,%s,%d,%d,%d,%d,%s,%s,%d)",
-                "NULL", newFileName, this.day, this.month, this.year, this.progressiveNumber, newFile.fileExtension, newFile.getAbsolutePath(), newFile.hashCode()
-        ));
-        connection.close();
+        this.progressiveNumber = databaseService.getProgNumber(this.day,this.month,this.year);
+        String newFileName = this.day + "-" + this.month + "-" + Integer.toString(this.year).substring(2) + "-"
+                + this.progressiveNumber + "." + newFile.fileExtension;
+        newFile.renameTo(new File(properties.getProperty("NEW_FOLDER_PATH")+ newFileName)); // rinomino
+        // checkArchive()
+        // move()
+        // addFileToDb()
+        // TODO: rinominare, effettuare i controlli per lo spostamento, spostare e infine aggiungere dati al db
+        // TODO: implementare rinominazione file e spostamento nella cartella opportuna dell'archivio
+    }
+
+    private void moveFile(NewFile newFile){
+        // TODO: implementare creazione cartelle dell'anno e del mese se queste ancora non esistono
+        newFile.renameTo(new File("path di arrivo"));
     }
 
     private void renameYearMonthDayHourFile(NewFile newFile) {
