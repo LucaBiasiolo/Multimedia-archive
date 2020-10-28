@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class DatabaseService {
 
     private static DatabaseService databaseServiceInstance = null;
-    private final Logger logger = Logger.getLogger("Database-Service-logger");
+    private final Logger logger = Logger.getLogger("biasiolo.luca.multimediaarchive.database.DatabaseService");
     private final Properties properties = MultimediaArchive.properties;
     private DatabaseService(){}
 

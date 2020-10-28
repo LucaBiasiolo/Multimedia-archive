@@ -1,9 +1,6 @@
 package biasiolo.luca.multimediaarchive.archive;
 
-import biasiolo.luca.multimediaarchive.MultimediaArchive;
 import biasiolo.luca.multimediaarchive.newfile.NewFile;
-
-import java.util.Properties;
 
 public class ArchiveFile extends NewFile {
 

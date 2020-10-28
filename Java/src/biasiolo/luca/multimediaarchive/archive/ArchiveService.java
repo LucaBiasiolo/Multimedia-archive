@@ -17,6 +17,6 @@ public class ArchiveService {
     }
 
     public void checkArchive(NewFile newFile){
-        //
+        // TODO: controllare se esiste cartella con anno e mese. In caso negativo, crearle
     }
 }

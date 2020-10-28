@@ -13,6 +13,7 @@ public class ArchiveFileService {
     }
 
     private void renameArchiveFiles(){
+        // TODO: rinominare opportunamente file in caso di cancellazione
         // TODO: utilizzare direttamente i path assoluti dei file invece di navigare nelle cartelle
     }
 }
