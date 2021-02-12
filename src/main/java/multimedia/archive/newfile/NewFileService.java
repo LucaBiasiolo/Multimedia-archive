@@ -2,6 +2,8 @@ package multimedia.archive.newfile;
 
 import multimedia.archive.MultimediaArchive;
 import multimedia.archive.database.DatabaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.sql.Timestamp;
@@ -9,27 +11,21 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+@Service
 public class NewFileService {
 
-    private static NewFileService newFileServiceInstance = null;
-    private Properties properties = MultimediaArchive.properties;
-    private String[] ADMITTED_FILE_EXTENSIONS = properties.getProperty("ADMITTED_FILE_EXTENSIONS").split(",");
-    private final Logger logger = Logger.getLogger("biasiolo.luca.multimediaarchive.newfile.NewFileService");
-    private final DatabaseService databaseService = DatabaseService.getInstance();
+    private final Properties properties = MultimediaArchive.properties;
+    private final String[] ADMITTED_FILE_EXTENSIONS = properties.getProperty("ADMITTED_FILE_EXTENSIONS").split(",");
+    private final Logger logger = Logger.getLogger("multimedia.archive.newfile.NewFileService");
+
+    @Autowired
+    private DatabaseService databaseService;
+
     private int day;
     private int month;
     private int year;
-    private int progressiveNumber;
-    private NewFileService() {}
 
-    public static NewFileService getInstance() {
-        if (newFileServiceInstance == null) {
-            newFileServiceInstance = new NewFileService();
-        }
-        return newFileServiceInstance;
-    }
-
-    public void processNewFile(NewFile newFile){
+    public void processNewFile(NewFile newFile) {
         checkFileExtension(newFile);
         renameFile(newFile);
         // TODO: implementare creazione cartelle dell'anno e del mese se queste ancora non esistono
@@ -61,13 +57,10 @@ public class NewFileService {
         } else {
             renameMDateFile(newFile);
         }
-        this.progressiveNumber = databaseService.getProgNumber(this.day,this.month,this.year);
+        int progressiveNumber = databaseService.getProgNumber(this.day, this.month, this.year);
         String newFileName = this.day + "-" + this.month + "-" + Integer.toString(this.year).substring(2) + "-"
-                + this.progressiveNumber + "." + newFile.fileExtension;
+                + progressiveNumber + "." + newFile.fileExtension;
         newFile.renameTo(new File(properties.getProperty("NEW_FOLDER_PATH")+ newFileName));
-    }
-
-    private void moveFile(NewFile newFile){
     }
 
     private void renameYearMonthDayHourFile(NewFile newFile) {
