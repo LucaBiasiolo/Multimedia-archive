@@ -1,6 +1,6 @@
 package multimedia.archive.archive;
 
-import biasiolo.luca.multimediaarchive.newfile.NewFile;
+import multimedia.archive.newfile.NewFile;
 
 public class ArchiveFile extends NewFile {
 
