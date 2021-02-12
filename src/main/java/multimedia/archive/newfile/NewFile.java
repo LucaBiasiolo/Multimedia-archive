@@ -1,4 +1,4 @@
-package biasiolo.luca.multimediaarchive.newfile;
+package multimedia.archive.newfile;
 
 import java.io.File;
 

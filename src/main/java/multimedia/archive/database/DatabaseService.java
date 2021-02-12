@@ -1,7 +1,7 @@
-package biasiolo.luca.multimediaarchive.database;
+package multimedia.archive.database;
 
-import biasiolo.luca.multimediaarchive.MultimediaArchive;
-import biasiolo.luca.multimediaarchive.archive.ArchiveFile;
+import multimedia.archive.MultimediaArchive;
+import multimedia.archive.archive.ArchiveFile;
 
 import java.sql.*;
 import java.util.Properties;

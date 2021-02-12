@@ -1,4 +1,4 @@
-package biasiolo.luca.multimediaarchive;
+package multimedia.archive;
 
 import java.io.FileWriter;
 import java.io.IOException;

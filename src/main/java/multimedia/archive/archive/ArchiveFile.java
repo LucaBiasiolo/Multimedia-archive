@@ -1,4 +1,4 @@
-package biasiolo.luca.multimediaarchive.archive;
+package multimedia.archive.archive;
 
 import biasiolo.luca.multimediaarchive.newfile.NewFile;
 

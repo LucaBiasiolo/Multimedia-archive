@@ -1,4 +1,4 @@
-package biasiolo.luca.multimediaarchive.archive;
+package multimedia.archive.archive;
 
 public class ArchiveFileService {
 

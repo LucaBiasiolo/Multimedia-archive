@@ -1,6 +1,6 @@
-package biasiolo.luca.multimediaarchive.archive;
+package multimedia.archive.archive;
 
-import biasiolo.luca.multimediaarchive.newfile.NewFile;
+import multimedia.archive.newfile.NewFile;
 
 public class ArchiveService {
     // TODO: metodi di utility per gestire l'archivio multimediale
