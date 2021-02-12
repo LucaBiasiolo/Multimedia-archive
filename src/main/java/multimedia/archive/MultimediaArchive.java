@@ -9,6 +9,12 @@ public class MultimediaArchive {
 
     public static final Properties properties = new Properties();
 
+    // TODO: metodi di utility per gestire l'archivio multimediale
+    // TODO: implementare struttura archivio come albero di cartelle
+    // TODO: rinominare opportunamente file in caso di cancellazione
+    // TODO: utilizzare direttamente i path assoluti dei file invece di navigare nelle cartelle
+    // TODO: controllare se esiste cartella con anno e mese. In caso negativo, crearle
+
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Absolute path of the folder to add: ");
