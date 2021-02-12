@@ -2,24 +2,17 @@ package multimedia.archive.database;
 
 import multimedia.archive.MultimediaArchive;
 import multimedia.archive.archive.ArchiveFile;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+@Service
 public class DatabaseService {
 
-    private static DatabaseService databaseServiceInstance = null;
-    private final Logger logger = Logger.getLogger("biasiolo.luca.multimediaarchive.database.DatabaseService");
+    private final Logger logger = Logger.getLogger("multimedia.archive.database.DatabaseService");
     private final Properties properties = MultimediaArchive.properties;
-    private DatabaseService(){}
-
-    public static DatabaseService getInstance() {
-        if (databaseServiceInstance == null) {
-            databaseServiceInstance = new DatabaseService();
-        }
-        return databaseServiceInstance;
-    }
 
     public int getProgNumber(int day, int month, int year) {
         int maxProgressiveNumber = 1;
@@ -42,6 +35,7 @@ public class DatabaseService {
         }
     }
 
+    // TODO: Da spostare in classe DAO
     public void addFileToDb(ArchiveFile archiveFileToAdd){
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db_url"))) {
             Statement statement = connection.createStatement();
