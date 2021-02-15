@@ -1,4 +1,4 @@
-package multimedia.archive.newfile;
+package it.multimedia.archive.newfile;
 
 import java.io.File;
 

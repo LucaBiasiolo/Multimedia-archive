@@ -1,6 +1,6 @@
-package multimedia.archive.archive;
+package it.multimedia.archive.archive;
 
-import multimedia.archive.newfile.NewFile;
+import it.multimedia.archive.newfile.NewFile;
 
 public class ArchiveFile extends NewFile {
 

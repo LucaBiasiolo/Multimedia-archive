@@ -1,7 +1,7 @@
-package multimedia.archive.database;
+package it.multimedia.archive.database;
 
-import multimedia.archive.MultimediaArchive;
-import multimedia.archive.archive.ArchiveFile;
+import it.multimedia.archive.MultimediaArchive;
+import it.multimedia.archive.archive.ArchiveFile;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;

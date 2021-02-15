@@ -1,4 +1,4 @@
-package multimedia.archive;
+package it.multimedia.archive;
 
 import java.io.FileWriter;
 import java.io.IOException;
