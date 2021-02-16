@@ -1,7 +1,6 @@
 package it.multimedia.archive.database;
 
 import it.multimedia.archive.MultimediaArchive;
-import it.multimedia.archive.archive.ArchiveFile;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -36,17 +35,17 @@ public class DatabaseService {
     }
 
     // TODO: Da spostare in classe DAO
-    public void addFileToDb(ArchiveFile archiveFileToAdd){
+/*    public void addFileToDb(ArchiveFile archiveFileToAdd){
         try (Connection connection = DriverManager.getConnection(properties.getProperty("db_url"))) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(String.format( "insert into files values (%s,%s,%d,%d,%d,%d,%s,%s,%d)",
                     "NULL", archiveFileToAdd.getName(), archiveFileToAdd.getDay(), archiveFileToAdd.getMonth(), archiveFileToAdd.getYear(),
-                    archiveFileToAdd.getProgressiveNumber(), archiveFileToAdd.getFileExtension(), archiveFileToAdd.getAbsolutePath(),
+                    archiveFileToAdd.getProgNumber(), archiveFileToAdd.getFileExtension(), archiveFileToAdd.getAbsolutePath(),
                     archiveFileToAdd.hashCode()
             ));
         } catch (SQLException exception) {
             logger.severe("An error occurred:" + exception.getMessage());
             exception.printStackTrace();
         }
-    }
+    }*/
 }
