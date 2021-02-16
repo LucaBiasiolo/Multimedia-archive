@@ -14,8 +14,7 @@ import java.util.logging.Logger;
 public class NewFileService {
 
     private final Properties properties = MultimediaArchive.properties;
-    private final String[] ADMITTED_FILE_EXTENSIONS = properties.getProperty("ADMITTED_FILE_EXTENSIONS").split(",");
-    private final Logger logger = Logger.getLogger("multimedia.archive.newfile.NewFileService");
+    private final Logger logger = Logger.getLogger("it.multimedia.archive.newfile.NewFileService");
 
     @Autowired
     private DatabaseService databaseService;
@@ -33,10 +32,10 @@ public class NewFileService {
 
     public boolean checkFileExtension(NewFile newFile) {
         boolean okay = true;
-        if (!Arrays.asList(ADMITTED_FILE_EXTENSIONS).contains(newFile.fileExtension)) {
+/*        if (!Arrays.asList(ADMITTED_FILE_EXTENSIONS).contains(newFile.fileExtension)) {
             logger.info(newFile.getName() + " cannot be processed as its extension is invalid");
             okay = false;
-        }
+        }*/
         return okay;
     }
 
