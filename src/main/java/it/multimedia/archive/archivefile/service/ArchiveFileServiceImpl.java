@@ -17,4 +17,8 @@ public class ArchiveFileServiceImpl implements ArchiveFileService {
     public List getArchiveFiles() {
         return archiveFileRepository.getArchiveFiles();
     }
+
+    public int getMaxProgressiveNumberByDate(int day, int month, int year) {
+        return archiveFileRepository.getMaxProgressiveNumberByDate(day, month, year);
+    }
 }

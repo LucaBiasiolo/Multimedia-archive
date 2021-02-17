@@ -20,4 +20,9 @@ public class ArchiveFileRepositoryImpl implements ArchiveFileRepository {
     public List getArchiveFiles() {
         return session().createQuery("from ArchiveFile").list();
     }
+
+    public int getMaxProgressiveNumberByDate(int day, int month, int year) {
+        // TODO: Da implementare
+        return 0;
+    }
 }
