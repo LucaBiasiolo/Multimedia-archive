@@ -1,20 +1,23 @@
-package it.multimedia.archive.newfile;
+package it.multimedia.archive.file;
 
-import it.multimedia.archive.MultimediaArchive;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Service
-public class NewFileService {
+public class FileServiceImpl implements FileService {
 
-    private final Properties properties = MultimediaArchive.properties;
     private final Logger logger = Logger.getLogger("it.multimedia.archive.newfile.NewFileService");
 
-    public void processNewFile(NewFile newFile) {
+    // this.fileExtension = this.getName().split("\\.")[1];
+
+    public void processNewFile(File newFile) {
         checkFileExtension(newFile);
         renameFile(newFile);
         // TODO: implementare creazione cartelle dell'anno e del mese se queste ancora non esistono
@@ -25,7 +28,7 @@ public class NewFileService {
         // addFileToDb()
     }
 
-    public boolean checkFileExtension(NewFile newFile) {
+    public boolean checkFileExtension(File newFile) {
         boolean okay = true;
 /*        if (!Arrays.asList(ADMITTED_FILE_EXTENSIONS).contains(newFile.fileExtension)) {
             logger.info(newFile.getName() + " cannot be processed as its extension is invalid");
@@ -34,7 +37,7 @@ public class NewFileService {
         return okay;
     }
 
-    public void renameFile(NewFile newFile) {
+    public void renameFile(File newFile) {
         Map<String, Integer> newFileData;
         if (newFile.getName().split("\\.")[0].length() == 10) {
             newFileData = renameTimestampFile(newFile);
@@ -53,7 +56,7 @@ public class NewFileService {
         newFile.renameTo(new File(properties.getProperty("NEW_FOLDER_PATH") + newFileName));*/
     }
 
-    private Map renameYearMonthDayHourFile(NewFile newFile) {
+    private Map renameYearMonthDayHourFile(File newFile) {
         List<String> pieces = Arrays.asList(newFile.getName().split("_"));
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", Integer.parseInt(pieces.get(0).substring(0, 4)));
@@ -62,7 +65,7 @@ public class NewFileService {
         return newFileData;
     }
 
-    private Map renameTimestampFile(NewFile newFile) {
+    private Map renameTimestampFile(File newFile) {
         Timestamp timestamp = new Timestamp(Integer.parseInt(newFile.getName().split("\\.")[0]));
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", timestamp.getYear());
@@ -71,7 +74,7 @@ public class NewFileService {
         return newFileData;
     }
 
-    private Map renameIMGVIDFile(NewFile newFile) {
+    private Map renameIMGVIDFile(File newFile) {
         String[] pieces = newFile.getName().split("-");
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", Integer.parseInt(pieces[1].substring(0, 4)));
@@ -80,7 +83,7 @@ public class NewFileService {
         return newFileData;
     }
 
-    private Map renameWPFile(NewFile newFile) {
+    private Map renameWPFile(File newFile) {
         String[] pieces = newFile.getName().split("_");
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", Integer.parseInt(pieces[1].substring(0, 4)));
@@ -89,7 +92,7 @@ public class NewFileService {
         return newFileData;
     }
 
-    private Map renameMDateFile(NewFile newFile) {
+    private Map renameMDateFile(File newFile) {
         Timestamp lastModifiedTimestamp = new Timestamp(new File(newFile.getAbsolutePath()).lastModified());
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", lastModifiedTimestamp.getYear());
