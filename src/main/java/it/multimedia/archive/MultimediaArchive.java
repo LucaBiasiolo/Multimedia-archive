@@ -35,9 +35,6 @@ public class MultimediaArchive {
         Properties properties = new Properties();
         properties.setProperty("NEW_FOLDER_PATH", NEW_FOLDER_PATH);
         properties.setProperty("ARCHIVE_ROOT_PATH", ARCHIVE_ROOT_PATH);
-        properties.setProperty("db_url", "jdbc:sqlite:archive.db");
-        // TODO: da capire come fare il parsing delle estensioni possibili
-        properties.setProperty("ADMITTED_FILE_EXTENSIONS", "jpg,JPG,jpeg,png,gif,mp4,opus,mpeg,mp3");
         properties.store(new FileWriter("multimediaArchive.properties"),null);
     }
 }
