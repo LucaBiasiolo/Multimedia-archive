@@ -1,8 +1,6 @@
 package it.multimedia.archive.newfile;
 
 import it.multimedia.archive.MultimediaArchive;
-import it.multimedia.archive.database.DatabaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -15,9 +13,6 @@ public class NewFileService {
 
     private final Properties properties = MultimediaArchive.properties;
     private final Logger logger = Logger.getLogger("it.multimedia.archive.newfile.NewFileService");
-
-    @Autowired
-    private DatabaseService databaseService;
 
     public void processNewFile(NewFile newFile) {
         checkFileExtension(newFile);
@@ -52,10 +47,10 @@ public class NewFileService {
         } else {
             newFileData = renameMDateFile(newFile);
         }
-        int progressiveNumber = databaseService.getProgNumber(newFileData.get("day"), newFileData.get("month"), newFileData.get("year"));
+        /*int progressiveNumber = databaseService.getProgNumber(newFileData.get("day"), newFileData.get("month"), newFileData.get("year"));
         String newFileName = String.format("%d-%d-%s-%d.%s", newFileData.get("day"), newFileData.get("month"),
                 Integer.toString(newFileData.get("year")).substring(2), progressiveNumber, newFile.fileExtension);
-        newFile.renameTo(new File(properties.getProperty("NEW_FOLDER_PATH") + newFileName));
+        newFile.renameTo(new File(properties.getProperty("NEW_FOLDER_PATH") + newFileName));*/
     }
 
     private Map renameYearMonthDayHourFile(NewFile newFile) {
