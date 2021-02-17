@@ -4,6 +4,7 @@ import it.multimedia.archive.archivefile.ArchiveFile;
 import it.multimedia.archive.archivefile.repository.ArchiveFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ArchiveFileServiceImpl implements ArchiveFileService {
         return archiveFileRepository.getArchiveFiles();
     }
 
-    // TODO: Decidere il livello di isolamento di @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public ArchiveFile insertNewArchivefile(ArchiveFile archiveFile) {
         return archiveFileRepository.insertNewArchiveFile(archiveFile);
     }
