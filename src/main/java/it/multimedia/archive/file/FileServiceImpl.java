@@ -1,5 +1,8 @@
 package it.multimedia.archive.file;
 
+import it.multimedia.archive.fileextension.FileExtension;
+import it.multimedia.archive.fileextension.service.FileExtensionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -9,13 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class FileServiceImpl implements FileService {
 
-    private final Logger logger = Logger.getLogger("it.multimedia.archive.newfile.NewFileService");
+    @Autowired
+    private FileExtensionService fileExtensionService;
 
-    // this.fileExtension = this.getName().split("\\.")[1];
+    private final Logger logger = Logger.getLogger("it.multimedia.archive.newfile.NewFileService");
 
     public void processNewFile(File newFile) {
         checkFileExtension(newFile);
@@ -29,12 +34,14 @@ public class FileServiceImpl implements FileService {
     }
 
     public boolean checkFileExtension(File newFile) {
-        boolean okay = true;
-/*        if (!Arrays.asList(ADMITTED_FILE_EXTENSIONS).contains(newFile.fileExtension)) {
-            logger.info(newFile.getName() + " cannot be processed as its extension is invalid");
-            okay = false;
-        }*/
-        return okay;
+        List<FileExtension> extensionsObjects = fileExtensionService.getFileExtensions();
+        List<String> extensions = extensionsObjects.stream().map(FileExtension::getExtension).collect(Collectors.toList());
+        String newFileExtension = newFile.getName().split("\\.")[1];
+        if (!extensions.contains(newFileExtension)) {
+            logger.warning("Il file " + newFile + " non può essere processato in quanto la sua estensione è invalida");
+            return false;
+        }
+        return true;
     }
 
     public void renameFile(File newFile) {
