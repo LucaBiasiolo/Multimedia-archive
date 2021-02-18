@@ -11,7 +11,7 @@ public class FileExtension {
     @Column(name = "extension_id")
     private int id;
 
-    @Column(name = "file_extension")
+    @Column(name = "file_extension", unique = true, nullable = false)
     private String extension;
 
     public int getId() {
