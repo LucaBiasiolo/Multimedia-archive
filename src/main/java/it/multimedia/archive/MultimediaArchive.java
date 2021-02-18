@@ -1,12 +1,8 @@
 package it.multimedia.archive;
 
-import java.io.IOException;
-import java.util.Properties;
 import java.util.Scanner;
 
 public class MultimediaArchive {
-
-    public static final Properties properties = new Properties();
 
     // TODO: metodi di utility per gestire l'archivio multimediale
     // TODO: implementare struttura archivio come albero di cartelle
@@ -24,7 +20,7 @@ public class MultimediaArchive {
         this.progNumber = Integer.parseInt(finalPiece.split("\\.")[0]);
     }*/
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Absolute path of the folder to add: ");
         final String NEW_FOLDER_PATH = scanner.nextLine();
