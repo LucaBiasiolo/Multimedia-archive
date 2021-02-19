@@ -35,6 +35,14 @@ public class ArchiveFile {
     @Column(name = "file_hash", nullable = false, unique = true)
     private String hash;
 
+    /*    public ArchiveFile(String path) {
+        this.day = Integer.parseInt(this.getName().split("-")[0]);
+        this.month = Integer.parseInt(this.getName().split("-")[1]);
+        this.year = Integer.parseInt(this.getName().split("-")[2]);
+        String finalPiece = this.getName().split("-")[3];
+        this.progNumber = Integer.parseInt(finalPiece.split("\\.")[0]);
+    }*/
+
     public long getId() {
         return id;
     }
