@@ -1,6 +1,7 @@
-package it.multimedia.archive.file;
+package it.multimedia.archive.file.service;
 
 import it.multimedia.archive.archivefile.service.ArchiveFileService;
+import it.multimedia.archive.exceptions.ProgressiveNumberNotFoundException;
 import it.multimedia.archive.fileextension.FileExtension;
 import it.multimedia.archive.fileextension.service.FileExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +23,15 @@ public class FileServiceImpl implements FileService {
 
     private final Logger logger = Logger.getLogger("it.multimedia.archive.newfile.NewFileService");
 
-    public void processNewFile(File newFile) {
+/*    public void processNewFile(File newFile) {
         checkFileExtension(newFile);
         renameFile(newFile);
         // TODO: implementare creazione cartelle dell'anno e del mese se queste ancora non esistono
         // TODO: rinominare, effettuare i controlli per lo spostamento, spostare e infine aggiungere dati al db
         // TODO: implementare rinominazione file e spostamento nella cartella opportuna dell'archivio
         // checkArchive()
-        // moveFile(newFile);
         // addFileToDb()
-    }
+    }*/
 
     public boolean checkFileExtension(File newFile) {
         List<FileExtension> extensionsObjects = fileExtensionService.getFileExtensions();
@@ -44,7 +44,7 @@ public class FileServiceImpl implements FileService {
         return true;
     }
 
-    public void renameFile(File newFile) {
+    public void renameFile(File newFile) throws ProgressiveNumberNotFoundException {
         Map<String, Integer> newFileData;
         String newFileExtension = newFile.getName().split("\\.")[1];
         if (newFile.getName().split("\\.")[0].length() == 10) {
@@ -68,8 +68,8 @@ public class FileServiceImpl implements FileService {
         List<String> pieces = Arrays.asList(newFile.getName().split("_"));
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", Integer.parseInt(pieces.get(0).substring(0, 4)));
-        newFileData.put("month", Integer.parseInt(pieces.get(0).substring(4, 6).replaceFirst("^0+(?!$)", "")));
-        newFileData.put("day", Integer.parseInt(pieces.get(0).substring(6).replaceFirst("^0+(?!$)", "")));
+        newFileData.put("month", Integer.parseInt(pieces.get(0).substring(4, 6)));
+        newFileData.put("day", Integer.parseInt(pieces.get(0).substring(6)));
         return newFileData;
     }
 
@@ -88,8 +88,8 @@ public class FileServiceImpl implements FileService {
         String[] pieces = newFile.getName().split("-");
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", Integer.parseInt(pieces[1].substring(0, 4)));
-        newFileData.put("month", Integer.parseInt(pieces[1].substring(4, 6).replaceFirst("^0+(?!$)", "")));
-        newFileData.put("day", Integer.parseInt(pieces[1].substring(6).replaceFirst("^0+(?!$)", "")));
+        newFileData.put("month", Integer.parseInt(pieces[1].substring(4, 6)));
+        newFileData.put("day", Integer.parseInt(pieces[1].substring(6)));
         return newFileData;
     }
 
@@ -97,8 +97,8 @@ public class FileServiceImpl implements FileService {
         String[] pieces = newFile.getName().split("_");
         Map<String, Integer> newFileData = new HashMap<>();
         newFileData.put("year", Integer.parseInt(pieces[1].substring(0, 4)));
-        newFileData.put("month", Integer.parseInt(pieces[1].substring(4, 6).replaceFirst("^0+(?!$)", "")));
-        newFileData.put("day", Integer.parseInt(pieces[1].substring(6).replaceFirst("^0+(?!$)", "")));
+        newFileData.put("month", Integer.parseInt(pieces[1].substring(4, 6)));
+        newFileData.put("day", Integer.parseInt(pieces[1].substring(6)));
         return newFileData;
     }
 
