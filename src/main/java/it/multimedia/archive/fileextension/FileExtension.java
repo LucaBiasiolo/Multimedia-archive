@@ -1,6 +1,7 @@
 package it.multimedia.archive.fileextension;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "anag_file_extensions")
@@ -28,5 +29,18 @@ public class FileExtension {
 
     public void setExtension(String extension) {
         this.extension = extension;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FileExtension)) return false;
+        FileExtension that = (FileExtension) o;
+        return extension.equals(that.extension);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(extension);
     }
 }
