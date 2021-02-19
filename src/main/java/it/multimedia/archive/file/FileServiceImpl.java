@@ -60,7 +60,7 @@ public class FileServiceImpl implements FileService {
         }
         int progressiveNumber = archiveFileService.getMaxProgressiveNumberByDate(newFileData.get("day"), newFileData.get("month"), newFileData.get("year"));
         String newFileName = String.format("%d-%d-%s-%d.%s", newFileData.get("day"), newFileData.get("month"),
-                Integer.toString(newFileData.get("year")).substring(2), progressiveNumber, newFileExtension);
+                Integer.toString(newFileData.get("year")).substring(2), progressiveNumber + 1, newFileExtension);
 //        Files.move(newFile.getAbsolutePath(), )// TODO: 19/02/2021 Inserire path cartella in cui spostare il file
     }
 
