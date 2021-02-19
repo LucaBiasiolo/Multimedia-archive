@@ -2,6 +2,7 @@ package it.multimedia.archive.archivefile.service;
 
 import it.multimedia.archive.archivefile.ArchiveFile;
 import it.multimedia.archive.archivefile.repository.ArchiveFileRepository;
+import it.multimedia.archive.exceptions.ProgressiveNumberNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -26,7 +27,12 @@ public class ArchiveFileServiceImpl implements ArchiveFileService {
     }
 
     @Transactional(readOnly = true)
-    public int getMaxProgressiveNumberByDate(int day, int month, int year) {
-        return archiveFileRepository.getMaxProgressiveNumberByDate(day, month, year);
+    public int getMaxProgressiveNumberByDate(int day, int month, int year) throws ProgressiveNumberNotFoundException {
+        int progressiveNumber = archiveFileRepository.getMaxProgressiveNumberByDate(day, month, year);
+        if (progressiveNumber == 0) {
+            return progressiveNumber;
+        } else {
+            throw new ProgressiveNumberNotFoundException(day, month, year);
+        }
     }
 }
