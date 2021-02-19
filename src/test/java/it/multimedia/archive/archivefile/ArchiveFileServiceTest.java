@@ -25,4 +25,11 @@ public class ArchiveFileServiceTest {
         assertNotNull(archiveFiles);
         assertEquals(0, archiveFiles.size());
     }
+
+/*    @Test
+    public void insertArchiveFileTest(){
+        ArchiveFile archiveFile = new ArchiveFile("01-01-2011-1.jpg");
+        ArchiveFile insertedArchiveFile = archiveFileService.insertNewArchivefile(archiveFile);
+        assertEquals(archiveFile, insertedArchiveFile);
+    }*/
 }
