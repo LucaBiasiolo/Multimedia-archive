@@ -26,6 +26,7 @@ public class ArchiveFileServiceTest {
         assertEquals(0, archiveFiles.size());
     }
 
+    // TODO: 19/02/2021 Da terminare aggiungendo proprietà mancanti 
 /*    @Test
     public void insertArchiveFileTest(){
         ArchiveFile archiveFile = new ArchiveFile("01-01-2011-1.jpg");
