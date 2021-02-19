@@ -1,16 +1,13 @@
 package it.multimedia.archive.file;
 
+import it.multimedia.archive.archivefile.service.ArchiveFileService;
 import it.multimedia.archive.fileextension.FileExtension;
 import it.multimedia.archive.fileextension.service.FileExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -19,6 +16,9 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private FileExtensionService fileExtensionService;
+
+    @Autowired
+    private ArchiveFileService archiveFileService;
 
     private final Logger logger = Logger.getLogger("it.multimedia.archive.newfile.NewFileService");
 
@@ -46,6 +46,7 @@ public class FileServiceImpl implements FileService {
 
     public void renameFile(File newFile) {
         Map<String, Integer> newFileData;
+        String newFileExtension = newFile.getName().split("\\.")[1];
         if (newFile.getName().split("\\.")[0].length() == 10) {
             newFileData = renameTimestampFile(newFile);
         } else if (newFile.getName().startsWith("IMG-") || newFile.getName().startsWith("VID-")) {
@@ -55,12 +56,12 @@ public class FileServiceImpl implements FileService {
         } else if (newFile.getName().split("\\.")[0].length() == 15) {
             newFileData = renameYearMonthDayHourFile(newFile);
         } else {
-            newFileData = renameMDateFile(newFile);
+            newFileData = renameLastModifiedDateFile(newFile);
         }
-        /*int progressiveNumber = databaseService.getProgNumber(newFileData.get("day"), newFileData.get("month"), newFileData.get("year"));
+        int progressiveNumber = archiveFileService.getMaxProgressiveNumberByDate(newFileData.get("day"), newFileData.get("month"), newFileData.get("year"));
         String newFileName = String.format("%d-%d-%s-%d.%s", newFileData.get("day"), newFileData.get("month"),
-                Integer.toString(newFileData.get("year")).substring(2), progressiveNumber, newFile.fileExtension);
-        newFile.renameTo(new File(properties.getProperty("NEW_FOLDER_PATH") + newFileName));*/
+                Integer.toString(newFileData.get("year")).substring(2), progressiveNumber, newFileExtension);
+//        Files.move(newFile.getAbsolutePath(), )// TODO: 19/02/2021 Inserire path cartella in cui spostare il file
     }
 
     private Map renameYearMonthDayHourFile(File newFile) {
@@ -73,11 +74,13 @@ public class FileServiceImpl implements FileService {
     }
 
     private Map renameTimestampFile(File newFile) {
-        Timestamp timestamp = new Timestamp(Integer.parseInt(newFile.getName().split("\\.")[0]));
+        Date timestamp = new Date(Integer.parseInt(newFile.getName().split("\\.")[0]));
         Map<String, Integer> newFileData = new HashMap<>();
-        newFileData.put("year", timestamp.getYear());
-        newFileData.put("month", timestamp.getMonth());
-        newFileData.put("day", timestamp.getDay());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timestamp);
+        newFileData.put("year", calendar.get(Calendar.YEAR));
+        newFileData.put("month", calendar.get(Calendar.MONTH));
+        newFileData.put("day", calendar.get(Calendar.DAY_OF_WEEK));
         return newFileData;
     }
 
@@ -99,12 +102,14 @@ public class FileServiceImpl implements FileService {
         return newFileData;
     }
 
-    private Map renameMDateFile(File newFile) {
-        Timestamp lastModifiedTimestamp = new Timestamp(new File(newFile.getAbsolutePath()).lastModified());
+    private Map renameLastModifiedDateFile(File newFile) {
+        Date lastModifiedTimestamp = new Date(new File(newFile.getAbsolutePath()).lastModified());
         Map<String, Integer> newFileData = new HashMap<>();
-        newFileData.put("year", lastModifiedTimestamp.getYear());
-        newFileData.put("month", lastModifiedTimestamp.getMonth());
-        newFileData.put("day", lastModifiedTimestamp.getDay());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(lastModifiedTimestamp);
+        newFileData.put("year", calendar.get(Calendar.YEAR));
+        newFileData.put("month", calendar.get(Calendar.MONTH));
+        newFileData.put("day", calendar.get(Calendar.DAY_OF_WEEK));
         return newFileData;
     }
 }
