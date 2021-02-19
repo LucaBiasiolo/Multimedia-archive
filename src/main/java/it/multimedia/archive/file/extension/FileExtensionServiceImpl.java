@@ -1,7 +1,6 @@
-package it.multimedia.archive.fileextension.service;
+package it.multimedia.archive.file.extension;
 
-import it.multimedia.archive.fileextension.FileExtension;
-import it.multimedia.archive.fileextension.repository.FileExtensionRepository;
+import it.multimedia.archive.file.extension.repository.FileExtensionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

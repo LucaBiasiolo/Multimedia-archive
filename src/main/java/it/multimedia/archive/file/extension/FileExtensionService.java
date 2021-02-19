@@ -1,12 +1,10 @@
-package it.multimedia.archive.fileextension.repository;
-
-import it.multimedia.archive.fileextension.FileExtension;
+package it.multimedia.archive.file.extension;
 
 import java.util.List;
 
-public interface FileExtensionRepository {
+public interface FileExtensionService {
 
-    List getFileExtensions();
+    List<FileExtension> getFileExtensions();
 
     FileExtension insertFileExtension(FileExtension fileExtension);
 

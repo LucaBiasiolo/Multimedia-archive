@@ -1,6 +1,6 @@
-package it.multimedia.archive.fileextension.repository;
+package it.multimedia.archive.file.extension.repository;
 
-import it.multimedia.archive.fileextension.FileExtension;
+import it.multimedia.archive.file.extension.FileExtension;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

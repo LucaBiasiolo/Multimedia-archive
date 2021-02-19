@@ -1,4 +1,4 @@
-package it.multimedia.archive.fileextension;
+package it.multimedia.archive.file.extension;
 
 import javax.persistence.*;
 import java.util.Objects;

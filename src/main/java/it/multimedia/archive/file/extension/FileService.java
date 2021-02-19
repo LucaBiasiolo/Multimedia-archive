@@ -1,4 +1,4 @@
-package it.multimedia.archive.file.service;
+package it.multimedia.archive.file.extension;
 
 import it.multimedia.archive.exceptions.ProgressiveNumberNotFoundException;
 
