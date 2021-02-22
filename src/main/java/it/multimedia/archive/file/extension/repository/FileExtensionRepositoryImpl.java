@@ -23,8 +23,6 @@ public class FileExtensionRepositoryImpl implements FileExtensionRepository {
         return session().createQuery("from FileExtension").list();
     }
 
-    // TODO: 18/02/2021 Creare metodi CRUD per estensioni file
-
     public FileExtension insertFileExtension(FileExtension fileExtension) {
         session().persist(fileExtension);
         return fileExtension;
