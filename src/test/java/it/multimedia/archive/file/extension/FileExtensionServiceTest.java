@@ -1,5 +1,6 @@
 package it.multimedia.archive.file.extension;
 
+import it.multimedia.archive.file.extension.service.FileExtensionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

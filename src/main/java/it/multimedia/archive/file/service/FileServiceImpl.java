@@ -1,7 +1,9 @@
-package it.multimedia.archive.file.extension;
+package it.multimedia.archive.file.service;
 
 import it.multimedia.archive.archivefile.service.ArchiveFileService;
 import it.multimedia.archive.exceptions.ProgressiveNumberNotFoundException;
+import it.multimedia.archive.file.extension.FileExtension;
+import it.multimedia.archive.file.extension.service.FileExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

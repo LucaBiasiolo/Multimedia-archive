@@ -1,4 +1,6 @@
-package it.multimedia.archive.file.extension;
+package it.multimedia.archive.file.extension.service;
+
+import it.multimedia.archive.file.extension.FileExtension;
 
 import java.util.List;
 
