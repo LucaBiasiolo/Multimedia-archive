@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ArchiveRepository {
 
-    List getArchives();
+    List<Archive> getArchives();
 
     Archive insertArchive(Archive archive);
 }
