@@ -9,4 +9,6 @@ public interface ArchiveRepository {
     List<Archive> getArchives();
 
     Archive insertArchive(Archive archive);
+
+    Archive getArchiveById(long archiveId);
 }

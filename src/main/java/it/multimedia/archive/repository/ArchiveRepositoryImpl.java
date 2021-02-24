@@ -22,6 +22,10 @@ public class ArchiveRepositoryImpl implements ArchiveRepository {
         return session().createQuery("from Archive").list();
     }
 
+    public Archive getArchiveById(long archiveId) {
+        return session().get(Archive.class, archiveId);
+    }
+
     public Archive insertArchive(Archive archive) {
         session().persist(archive);
         return archive;
