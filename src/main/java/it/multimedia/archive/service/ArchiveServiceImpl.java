@@ -15,7 +15,14 @@ public class ArchiveServiceImpl implements ArchiveService {
     private ArchiveRepository archiveRepository;
 
     @Transactional(readOnly = true)
+    // TODO: 24/02/2021 Implementare logiche
     public List<Archive> getArchives() {
         return archiveRepository.getArchives();
+    }
+
+    @Transactional(readOnly = true)
+    // TODO: 24/02/2021 Implementare logiche
+    public Archive getArchiveById(long archiveId) {
+        return archiveRepository.getArchiveById(archiveId);
     }
 }

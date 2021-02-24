@@ -7,4 +7,6 @@ import java.util.List;
 public interface ArchiveService {
 
     List<Archive> getArchives();
+
+    Archive getArchiveById(long archiveId);
 }
